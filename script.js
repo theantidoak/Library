@@ -11,8 +11,8 @@ class Book {
     this.title = form.titleDiv.children.titleInput.value;
     this.author = form.authorDiv.children.authorInput.value.split(' ').reverse().join(', ')
     this.pages = form.pagesDiv.children.pagesInput.value;
-    this.category = document.querySelector("form input[name='cat']:checked").value;
     this.year = form.yearDiv.children.yearInput.value;
+    this.category = document.querySelector("form input[name='cat']:checked").value;
     this.read = form.readDiv.children.readInput.checked;
   }
   addReferenceNumber() {
@@ -51,8 +51,8 @@ function addBook() {
     nextCard.children.middle.children.title.textContent = book.title;
     nextCard.children.middle.children.author.textContent = book.author;
     nextCard.children.middle.children.pages.textContent = book.pages + ' pp.';
-    nextCard.children.middle.children.category.textContent = book.category;
-    nextCard.children.left.children.year.textContent = book.year;
+    nextCard.children.middle.children.year.textContent = 'c.' + book.year;
+    nextCard.children.left.children.category.textContent = book.category;
     nextCard.children.left.children.catalog.textContent = book.catalog;
     nextCard.children.left.children.reference.textContent = book.reference;
     card.parentNode.appendChild(nextCard);
