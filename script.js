@@ -7,12 +7,12 @@ btn.addEventListener('click', addBook)
 
 class Book {
   constructor() {
-    this.title = form.children.titleDiv.children.titleInput.value,
-    this.author = form.children.authorDiv.children.authorInput.value,
-    this.pages = form.children.pagesDiv.children.pagesInput.value,
-    this.category = document.querySelector("form input[name='cat']:checked").value,
-    this.year = form.children.yearDiv.children.yearInput.value,
-    this.read = form.children.readDiv.children.readInput.checked
+    this.title = form.children.titleDiv.children.titleInput.value;
+    this.author = form.children.authorDiv.children.authorInput.value;
+    this.pages = form.children.pagesDiv.children.pagesInput.value;
+    this.category = document.querySelector("form input[name='cat']:checked").value;
+    this.year = form.children.yearDiv.children.yearInput.value;
+    this.read = form.children.readDiv.children.readInput.checked;
   }
   addReferenceNumber() {
     this.reference = this.author.substring(0, 2).toUpperCase() + 
@@ -33,14 +33,16 @@ class Book {
   }
 }
 
+addBook.prototype = Object.create(Book.prototype);
 function addBook() {
-  let newBook = new Book();
-  myLibrary.push(newBook);
-  newBook.addCatalogNumber();
-  newBook.addReferenceNumber();
-  newBook.readOrNot();
+  myLibrary.push(new Book());
+  // myLibrary.some((duplicate) => myLibrary.indexOf(duplicate.title) != myLibrary.lastIndexOf(duplicate.title));
   myLibrary.forEach((book) => {
     if (book.isDisplayed == true) return;
+    book.addCatalogNumber();
+    book.addReferenceNumber();
+    book.readOrNot();
+    book.display();
     let nextCard = card.cloneNode(true);
     nextCard.children.middle.children.title.textContent = book.title;
     nextCard.children.middle.children.author.textContent = book.author;
@@ -51,6 +53,4 @@ function addBook() {
     nextCard.children.left.children.reference.textContent = book.reference;
     card.parentNode.appendChild(nextCard);
   })
-  newBook.display();
 }
-addBook.prototype = Object.create(Book.prototype);
