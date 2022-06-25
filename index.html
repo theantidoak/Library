@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+  <title>Document</title>
+</head>
+<body>
+  <header></header>
+  <main>
+    <form action="#">
+      <div id="readDiv">
+        <input type="checkbox" id="readInput">
+        <label for="read-input">Read</label>
+        
+      </div>
+      <div id="yearDiv">
+        <input type="number" id="yearInput">
+        <label for="year-input">Year</label>
+        
+      </div>
+      <div id="titleDiv">
+        <input type="text" id="titleInput">
+        <label for="title-input">Title</label>
+        
+      </div>
+      <div id="authorDiv">
+        <input type="text" id="authorInput">
+        <label for="author-input">Author</label>
+        
+      </div>
+      <div id="pagesDiv">
+        <input type="text" id="pagesInput">
+        <label for="pages-input"># of Pages</label>
+        
+      </div>
+      <div id="catDiv">
+        <fieldset>
+          <legend>Choose Category</legend>
+          <div>
+            <input type="radio" id="fiction" name="cat">
+            <label for="fiction">Fiction</label>
+          </div>
+          <div>
+            <input type="radio" id="nonFiction" name="cat">
+            <label for="non-fiction">non-Fiction</label>
+          </div>
+          <div>
+            <input type="radio" id="other" name="cat">
+            <label for="other">Other</label>
+          </div>
+        </fieldset>
+      </div>
+      <div>
+        <button class="btn">Add Book</button>
+      </div>
+    </form>
+    <div class="card-cabinet">
+      <article class="card">
+        <div id="left">
+          <form action="#">
+            <input type="checkbox">
+          </form>
+          <p id="catalog-number"></p>
+          <p id="reference-number"></p>
+          <p id="publication-year"></p>
+        </div>
+        <div id="middle">
+          <h2 id="author"></h2>
+          <h3 id="title"></h3>
+          <h3 id="pages"></h3>
+          <h3 id="category"></h3>
+          <h3 id="ISBN"></h3>
+        </div>
+        <div id="right">
+          <img src="" alt="">
+        </div>
+      </article>
+    </div>
+  </main>
+  <footer></footer>
+  
+</body>
+</html>
