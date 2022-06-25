@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+}
+
+.card:first-child {
+  display: none;
+}
+
+.card {
+  display: flex;
+  gap: 1rem;
+  background-color: blue;
+  margin: 1rem;
+}
+
+#left {
+  width: 10rem;
+}
+
+#middle {
+  flex-basis: 100%;
+}
+
+/* #right {
+
+} */
