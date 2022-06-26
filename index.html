@@ -11,10 +11,10 @@
 <body>
   <header></header>
   <main>
-    <form action="">
+    <form action="" class="book-form">
       <div id="readDiv">
         <input type="checkbox" id="readInput">
-        <label for="read-input">Read</label>
+        <label for="read-input">Have you read it?</label>
         
       </div>
       <div id="yearDiv">
@@ -37,24 +37,17 @@
         <label for="pages-input"># of Pages</label>
         
       </div>
-      <div id="catDiv">
-        <fieldset>
-          <legend>Choose Category</legend>
-          <div>
-            <input type="radio" id="fiction" name="cat" value="Fiction">
-            <label for="fiction">Fiction</label>
-          </div>
-          <div>
-            <input type="radio" id="nonFiction" name="cat" value="Nonfiction" checked>
-            <label for="nonFiction">non-Fiction</label>
-          </div>
-          <div>
-            <input type="radio" id="other" name="cat" value="Other">
-            <label for="other">Other</label>
-          </div>
-        </fieldset>
+      <div id="catDiv"> 
+        <div>
+          <input type="radio" id="fiction" name="cat" value="Fiction">
+          <label for="fiction">Fiction</label>
+        </div>
+        <div>
+          <input type="radio" id="nonFiction" name="cat" value="Nonfiction" checked>
+          <label for="nonFiction">Nonfiction</label>
+        </div>
       </div>
-      <div>
+      <div id="upload">
         <input type="file" id="upload">
         <label for="upload">Upload Book Cover</label>
       </div>
