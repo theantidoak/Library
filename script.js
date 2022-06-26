@@ -55,6 +55,8 @@ function addBook() {
     nextCard.children.left.children.category.textContent = book.category;
     nextCard.children.left.children.catalog.textContent = book.catalog;
     nextCard.children.left.children.reference.textContent = book.reference;
+    nextCard.children.right.children[0].src = 
+      URL.createObjectURL(document.querySelector("input[type='file']").files[0]);
     card.parentNode.appendChild(nextCard);
   })
 }
