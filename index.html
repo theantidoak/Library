@@ -11,31 +11,28 @@
 <body>
   <header></header>
   <main>
-    <form action="" class="book-form">
-      <div id="readDiv">
-        <input type="checkbox" id="readInput">
-        <label for="read-input">Have you read it?</label>
-        
-      </div>
-      <div id="yearDiv">
-        <input type="text" id="yearInput">
-        <label for="year-input">Year</label>
-        
-      </div>
+    <button class="display-form">Add book</button>
+    <form action="" class="book-form" autocomplete="off">
+      <h2>Add Book</h2>
       <div id="titleDiv">
-        <input type="text" id="titleInput">
-        <label for="title-input">Title</label>
-        
+        <input type="text" id="titleInput" pattern='.*' required="required">
+        <label for="titleInput">Title</label>
       </div>
       <div id="authorDiv">
-        <input type="text" id="authorInput">
-        <label for="author-input">Author</label>
-        
+        <input type="text" id="authorInput" pattern='.*' required="required">
+        <label for="authorInput">Author</label>
+      </div>
+      <div id="yearDiv">
+        <input type="text" id="yearInput" pattern='.*' required="required">
+        <label for="yearInput">Year</label>       
       </div>
       <div id="pagesDiv">
-        <input type="text" id="pagesInput">
-        <label for="pages-input"># of Pages</label>
-        
+        <input type="text" id="pagesInput" pattern='.*' required="required">
+        <label for="pagesInput">Pages</label>
+      </div>
+      <div id="upload">
+        <input type="file" id="upload">
+        <label for="upload">Book cover</label>
       </div>
       <div id="catDiv"> 
         <div>
@@ -47,16 +44,17 @@
           <label for="nonFiction">Nonfiction</label>
         </div>
       </div>
-      <div id="upload">
-        <input type="file" id="upload">
-        <label for="upload">Upload Book Cover</label>
+      <div id="readDiv">
+        <input type="checkbox" id="readInput">
+        <label for="read-input">Have you read it?</label>
       </div>
-      <div>
-        <button type="button" class="btn">Add Book</button>
+      <div id="btnDiv">
+        <button type="button" class="btn">Add book</button>
       </div>
     </form>
     <div class="card-cabinet">
-      <article class="card" data-number="00">
+      <article class="card" data-bookref="00">
+        <div class="tab"></div>
         <div class="red-line"></div>
         <div class="blue-lines">
           <div></div><div></div><div></div><div></div><div></div>
