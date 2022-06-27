@@ -108,13 +108,14 @@ input[type='checkbox']:checked {
 
 /*------ card ------*/
 
-/* .card-cabinet {
-  position: 
-} */
+.card-cabinet {
+  position: relative;
+}
 
-.card:first-child {
+article[data-bookref='00'] {
   display: none;
 }
+
 
 .card {
   display: flex;
