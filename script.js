@@ -1,14 +1,52 @@
 let myLibrary = [];
+let myCabinets = [];
+
 let count = 0;
-let topCount = 0;
+let drawerCount = 1;
+let svgDrawerCount = 1;
 let cardCabinet = document.querySelector('.card-cabinet');
+myCabinets.push(cardCabinet);
+const firstCard = document.querySelector('.card');
 const form = document.querySelector('form');
-const card = document.querySelector('.card');
 const btn = document.querySelector('.btn');
 const formDisplay = document.querySelector('.display-form');
 const main = document.querySelector('main');
 const organizeButton = document.querySelector('.organize');
-const firstCard = document.querySelector('.card');
+const stackedCabinet = document.querySelector('.stacked-cabinet')
+let cabinet = [];
+let newDrawer = document.querySelector('.drawer').cloneNode(true);
+newDrawer.id = svgDrawerCount;
+stackedCabinet.appendChild(newDrawer);
+newDrawer.style.transform = 'translateY(1rem) scale(1.05)';
+cabinet.push(newDrawer);
+
+const menu = document.querySelector('menu');
+
+
+cabinet.forEach((drawer) => drawer.addEventListener('click', openDrawer));
+
+function openDrawer() {
+  if (this.style.transform == 'translateY(0px) scale(1)') {
+    cabinet.forEach((drawer) => drawer.style.transform = 'translateY(0px) scale(1)')
+    this.style.transform = 'translateY(1rem) scale(1.05)';
+    this.style.zIndex = '2';
+    myCabinets.forEach((drawer) => {
+      drawer.style.display = 'none';
+      if (this.id == drawer.dataset.drawer) {
+        drawer.style.display = 'block';
+      } 
+    })
+  } else if (this.style.transform == 'translateY(1rem) scale(1.05)') {
+    this.style.transform = 'translateY(0) scale(1)';
+    this.style.zIndex = '1';
+    myCabinets.forEach((drawer) => {
+      if (this.id == drawer.dataset.drawer) {
+        drawer.style.display = 'none';
+      } 
+    })
+  }
+}
+
 
 
 btn.addEventListener('click', addBook);
@@ -72,8 +110,6 @@ class Book {
   useTabs(bookref) {
     let thisCard = document.querySelector(`article[data-bookref="${bookref}"]`);
     thisCard.children[0].addEventListener('click', () => {
-      console.log('hi');
-      console.log(thisCard);
       [...thisCard.parentElement.children].forEach((card) => {
         card.style.zIndex = 1;
         card.children[0].style.backgroundColor = '#E0c9A6';
@@ -91,7 +127,7 @@ class Book {
       book.readOrNot();
       book.display();
       /*------ Create new card ------*/
-      let nextCard = card.cloneNode(true);
+      const nextCard = firstCard.cloneNode(true);
       nextCard.children.middle.children.title.textContent = book.title == '' ? '????' : book.title;
       nextCard.children.middle.children.author.textContent = book.author = book.author;
       nextCard.children.middle.children.pages.textContent = book.pages == '' ? '???pp.' : book.pages + ' pp.';
@@ -104,13 +140,10 @@ class Book {
         .map((it) => it[0])
         .join(', ');
   
-      if (cardCabinet.children.length % 6 == 0 && cardCabinet.children.length != 1) {
-        console.log(cardCabinet.children.length % 6);
+      if (cardCabinet.children.length % 6 == 0 && cardCabinet.children.length != 0) {
         count = 0;
-        topCount += 15;
       }
       nextCard.children[0].style.left = count + 'rem';
-      nextCard.style.top = topCount + 'rem';
       count += 4.1;
       if (document.querySelector("input[type='file']").files[0]) {
         nextCard.children.right.children[0].src = 
@@ -119,15 +152,32 @@ class Book {
       nextCard.dataset.bookref = book.reference;
       nextCard.style.zIndex = myLibrary.indexOf(book) + 1;
       [...cardCabinet.children].forEach((oldCards) => {
-        if ([...cardCabinet.children][0] != oldCards) {
-          oldCards.children[0].style.backgroundColor = '#E0c9A6'
-        }});
-  
-      if (cardCabinet.children.length % 6 == 0) {
-        let newCabinet = document.createElement('div');
-        cardCabinet = newCabinet;
+        oldCards.children[0].style.backgroundColor = '#E0c9A6';
+      })
+      if (cardCabinet.children.length % 6 == 0 && cardCabinet.children.length != 0) {
+        drawerCount += 1;
+        svgDrawerCount += 1;
+        cardCabinet.style.display = 'none';
+        newDrawer.style.transform = 'translateY(0) scale(1)';
+        let firstMenuContent = document.createTextNode(cardCabinet.children[0].children.middle.children.author.textContent.split(' ').map((it) => it[0]) + ' - ');
+        let secondMenuContent = document.createTextNode(cardCabinet.children[5].children.middle.children.author.textContent.split(' ').map((it) => it[0]));
+        cardCabinet = document.createElement('div');
+        cardCabinet.classList.add('card-cabinet');
+        myCabinets.push(cardCabinet);
         main.appendChild(cardCabinet);
+        newDrawer = document.querySelector('.drawer').cloneNode(true);
+        newDrawer.id = svgDrawerCount;
+        newDrawer.style.transform = 'translateY(1rem) scale(1.05)';
+        stackedCabinet.appendChild(newDrawer);
+        cabinet.push(newDrawer);
+        cabinet.forEach((drawer) => drawer.addEventListener('click', openDrawer));
+
+        let menuContent = document.createElement('li');
+        menuContent.appendChild(firstMenuContent);
+        menuContent.appendChild(secondMenuContent);
+        menu.appendChild(menuContent);
       } 
+      cardCabinet.dataset.drawer = drawerCount;
       cardCabinet.appendChild(nextCard);
       let bookref = nextCard.dataset.bookref;
       book.deleteCard(bookref);
@@ -135,7 +185,6 @@ class Book {
       book.resetForm();
     })
   }
-
 }
 
 
@@ -156,7 +205,10 @@ function addBook() {
 
 function organizeBooks() {
   count = 0;
-  topCount = 0;
+  drawerCount = 1;
+  svgDrawerCount = 1;
+  myCabinets = [];
+  cabinet = [];
   myLibrary.forEach((book) => {
     book.isDisplayed = false;
   })
@@ -168,8 +220,16 @@ function organizeBooks() {
       }
       child.parentElement.removeChild(child);
     }
-    })
-  cardCabinet.appendChild(firstCard);
+  });
+  while (menu.firstChild) {
+    menu.removeChild(menu.lastChild);
+  }
+  
+  cabinet.push(newDrawer);
+  myCabinets.push(cardCabinet);
+  newDrawer.id = svgDrawerCount;
+  stackedCabinet.appendChild(newDrawer);
+  main.appendChild(stackedCabinet);
   main.appendChild(cardCabinet);
   let newBook = new Book();
   newBook.loopThroughLibrary();

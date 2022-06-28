@@ -11,6 +11,17 @@
   box-sizing: border-box;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+main {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+}
 
 .book-form {
   background-color: orange;
@@ -108,11 +119,38 @@ input[type='checkbox']:checked {
 
 /*------ card ------*/
 
+menu {
+  list-style: none;
+  margin: 2rem 1rem 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  align-items: center;
+}
+
+menu li {
+  padding: 0;
+}
+
 .card-cabinet {
   position: relative;
 }
 
-article[data-bookref='00'] {
+.stacked-cabinet {
+  display: flex;
+  flex-direction: column;
+  background-color: #5d4014;
+  width: 8rem;
+}
+
+.drawer {
+  background-color: #966F33;
+  width: 8rem;
+  height: 5.6rem;
+}
+
+article[data-bookref='00'], .card-template, svg[id='0'] {
   display: none;
 }
 
