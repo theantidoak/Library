@@ -27,7 +27,9 @@ cabinet.forEach((drawer) => drawer.addEventListener('click', openDrawer));
 
 function openDrawer() {
   if (this.style.transform == 'translateY(0px) scale(1)') {
-    cabinet.forEach((drawer) => drawer.style.transform = 'translateY(0px) scale(1)')
+    cabinet.forEach((drawer) => {
+      drawer.style.transform = 'translateY(0px) scale(1)'
+      drawer.style.zIndex = '1'});
     this.style.transform = 'translateY(1rem) scale(1.05)';
     this.style.zIndex = '2';
     myCabinets.forEach((drawer) => {
@@ -138,6 +140,11 @@ class Book {
       nextCard.children.left.children.reference.textContent = book.reference;
       nextCard.children[0].textContent = book.author
         .split(' ')
+        .filter((bok) => {
+          if (book.author.split(' ').indexOf(bok) == 0 || book.author.split(' ').indexOf(bok) == book.author.split(' ').length - 1) {
+              return bok;
+          }
+      })
         .map((it) => it[0])
         .join(', ');
   
@@ -160,8 +167,14 @@ class Book {
         svgDrawerCount += 1;
         cardCabinet.style.display = 'none';
         newDrawer.style.transform = 'translateY(0) scale(1)';
-        let firstMenuContent = document.createTextNode(cardCabinet.children[0].children.middle.children.author.textContent.split(' ').map((it) => it[0]) + ' - ');
-        let secondMenuContent = document.createTextNode(cardCabinet.children[5].children.middle.children.author.textContent.split(' ').map((it) => it[0]));
+        let firstOrderName = cardCabinet.children[0].children.middle.children.author.textContent.split(' ');
+        let lastOrderName = cardCabinet.children[5].children.middle.children.author.textContent.split(' ');
+        let firstMenuContent = document.createTextNode(firstOrderName.filter((bok) => {
+          if (firstOrderName.indexOf(bok) == 0 || firstOrderName.indexOf(bok) == firstOrderName.length - 1) {
+              return bok;}}).map((it) => it[0]) + ' - ');
+        let secondMenuContent = document.createTextNode(lastOrderName.filter((bok) => {
+          if (lastOrderName.indexOf(bok) == 0 || lastOrderName.indexOf(bok) == lastOrderName.length - 1) {
+              return bok;}}).map((it) => it[0]));
         cardCabinet = document.createElement('div');
         cardCabinet.classList.add('card-cabinet');
         myCabinets.push(cardCabinet);
@@ -173,6 +186,7 @@ class Book {
         stackedCabinet.appendChild(newDrawer);
         cabinet.push(newDrawer);
         cabinet.forEach((drawer) => drawer.addEventListener('click', openDrawer));
+        
 
         let menuContent = document.createElement('li');
         menuContent.appendChild(firstMenuContent);
