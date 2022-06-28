@@ -4,6 +4,7 @@ let myCabinets = [];
 let count = 0;
 let drawerCount = 1;
 let svgDrawerCount = 1;
+let menuContent;
 let cardCabinet = document.querySelector('.card-cabinet');
 myCabinets.push(cardCabinet);
 const firstCard = document.querySelector('.card');
@@ -167,11 +168,9 @@ class Book {
         svgDrawerCount += 1;
         cardCabinet.style.display = 'none';
         newDrawer.style.transform = 'translateY(0) scale(1)';
-        let firstOrderName = cardCabinet.children[0].children.middle.children.author.textContent.split(' ');
+        
         let lastOrderName = cardCabinet.children[5].children.middle.children.author.textContent.split(' ');
-        let firstMenuContent = document.createTextNode(firstOrderName.filter((bok) => {
-          if (firstOrderName.indexOf(bok) == 0 || firstOrderName.indexOf(bok) == firstOrderName.length - 1) {
-              return bok;}}).map((it) => it[0]) + ' - ');
+        
         let secondMenuContent = document.createTextNode(lastOrderName.filter((bok) => {
           if (lastOrderName.indexOf(bok) == 0 || lastOrderName.indexOf(bok) == lastOrderName.length - 1) {
               return bok;}}).map((it) => it[0]));
@@ -187,15 +186,23 @@ class Book {
         cabinet.push(newDrawer);
         cabinet.forEach((drawer) => drawer.addEventListener('click', openDrawer));
         
-
-        let menuContent = document.createElement('li');
-        menuContent.appendChild(firstMenuContent);
         menuContent.appendChild(secondMenuContent);
-        labels.push(menuContent);
-        menu.appendChild(menuContent);
       } 
+
       cardCabinet.dataset.drawer = drawerCount;
       cardCabinet.appendChild(nextCard);
+      if (cardCabinet.children.length == 1) {
+        let firstOrderName = cardCabinet.children[0].children.middle.children.author.textContent.split(' ');
+        let firstMenuContent = document.createTextNode(firstOrderName.filter((bok) => {
+          if (firstOrderName.indexOf(bok) == 0 || firstOrderName.indexOf(bok) == firstOrderName.length - 1) {
+              return bok;}}).map((it) => it[0]) + ' - ');
+        menuContent = document.createElement('li');
+        menuContent.appendChild(firstMenuContent);
+        
+        labels.push(menuContent);
+        menu.appendChild(menuContent);
+      }
+
       let bookref = nextCard.dataset.bookref;
       book.deleteCard(bookref);
       book.useTabs(bookref);
