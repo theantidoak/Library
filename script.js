@@ -20,8 +20,8 @@ stackedCabinet.appendChild(newDrawer);
 newDrawer.style.transform = 'translateY(1rem) scale(1.05)';
 cabinet.push(newDrawer);
 
-const menu = document.querySelector('menu');
-
+let menu = document.querySelector('menu');
+let labels = [];
 
 cabinet.forEach((drawer) => drawer.addEventListener('click', openDrawer));
 
@@ -45,6 +45,7 @@ function openDrawer() {
       } 
     })
   }
+  moveLabelWithDrawer();
 }
 
 
@@ -168,6 +169,7 @@ class Book {
         newDrawer = document.querySelector('.drawer').cloneNode(true);
         newDrawer.id = svgDrawerCount;
         newDrawer.style.transform = 'translateY(1rem) scale(1.05)';
+        
         stackedCabinet.appendChild(newDrawer);
         cabinet.push(newDrawer);
         cabinet.forEach((drawer) => drawer.addEventListener('click', openDrawer));
@@ -175,6 +177,7 @@ class Book {
         let menuContent = document.createElement('li');
         menuContent.appendChild(firstMenuContent);
         menuContent.appendChild(secondMenuContent);
+        labels.push(menuContent);
         menu.appendChild(menuContent);
       } 
       cardCabinet.dataset.drawer = drawerCount;
@@ -184,7 +187,8 @@ class Book {
       book.useTabs(bookref);
       book.resetForm();
     })
-  }
+    moveLabelWithDrawer();
+  } 
 }
 
 
@@ -209,6 +213,7 @@ function organizeBooks() {
   svgDrawerCount = 1;
   myCabinets = [];
   cabinet = [];
+  labels = [];
   myLibrary.forEach((book) => {
     book.isDisplayed = false;
   })
@@ -221,16 +226,34 @@ function organizeBooks() {
       child.parentElement.removeChild(child);
     }
   });
-  while (menu.firstChild) {
-    menu.removeChild(menu.lastChild);
-  }
+  menu = document.createElement('menu');
   
+
   cabinet.push(newDrawer);
   myCabinets.push(cardCabinet);
   newDrawer.id = svgDrawerCount;
+  stackedCabinet.appendChild(menu);
   stackedCabinet.appendChild(newDrawer);
   main.appendChild(stackedCabinet);
   main.appendChild(cardCabinet);
   let newBook = new Book();
   newBook.loopThroughLibrary();
+}
+
+function moveLabelWithDrawer() {
+
+  if (labels.length < 1) return;
+  cabinet.forEach((drawer) => {
+    if (drawer.style.transform == 'translateY(0px) scale(1)') {
+      let index = cabinet.indexOf(drawer);
+      if (labels[index] == undefined) return;
+      let label = labels[index];
+      label.style.transform = 'translateY(0px) scale(1)';
+    } else if (drawer.style.transform == 'translateY(1rem) scale(1.05)') {
+      let index = cabinet.indexOf(drawer);
+      if (labels[index] == undefined) return;
+      let label = labels[index];
+      label.style.transform = 'translateY(1rem) scale(1.05)';
+    }
+  })
 }
