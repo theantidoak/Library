@@ -148,6 +148,12 @@ menu li {
   background-color: #966F33;
   width: 8rem;
   height: 5.6rem;
+  position: relative;
+}
+
+.svg-text {
+  max-width: 4rem;
+  max-height: 1rem;
 }
 
 article[data-bookref='00'], .card-template, svg[id='0'] {
