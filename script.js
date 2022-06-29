@@ -32,9 +32,9 @@ const exitFormButton = document.querySelector('.exit-form');
 
 document.addEventListener('click', exitForm);
 
+
 function exitForm(e) {
-  console.log(e.currentTarget);
-  if (!e.currentTarget.contains(exitFormButton)) {
+  if (exitFormButton.contains(e.target)) {
     form.style.display = 'none';
     [...form.parentNode.parentNode.children]
       .forEach((el) => [...el.children]
@@ -318,7 +318,11 @@ function moveLabelWithDrawer() {
 
 function showCards() {
   const cabinets = document.querySelectorAll('.card-cabinet');
+  const gridSVG = document.querySelector('.grid-svg');
+  const tabsSVG = document.querySelector('.tabs-svg');
   if (!shown) {
+    gridSVG.style.display = 'block';
+    tabsSVG.style.display = 'none';
     cabinets.forEach((cabinet) => {
       cabinet.classList.add('card-cabinet-displayed');
       [...cabinet.children].forEach((child) => {
@@ -327,6 +331,8 @@ function showCards() {
       })
     })
   } else if (shown) {
+    gridSVG.style.display = 'none';
+    tabsSVG.style.display = 'block';
     cabinets.forEach((cabinet) => {
       cabinet.classList.remove('card-cabinet-displayed');
       [...cabinet.children].forEach((child) => {

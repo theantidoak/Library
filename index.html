@@ -11,11 +11,35 @@
 <body>
   <header>
     <h1>The Library</h1>
-    <div class="header-buttons">
-      <button class="display-form">Add book</button>
-      <button class="organize">Organize books</button>
-      <button class="show-cards">Show the cards</button>
-    </div>
+    <button class="display-form">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book">
+          <style>
+            .plus {
+              transform: scale(1.8) translate(-11.5px, 0px);
+            }
+          </style>
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+          <path d="M 18 3 L 18 8 Q 18.5 8.5 19 8 L 19 3 Q 18.5 2.5 18 3 M 16 6 L 21 6 Q 21.5 5.5 21 5 L 16 5 Q 15.5 5.5 16 6" class='plus' stroke="none" stroke-width="0.2" fill="black"></path>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          
+        </svg>
+        Add a Book
+      </button>
+      <button class="organize">
+        <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48">
+          <path d="m4 34 8.1-20h3.15l8.05 20h-3.15l-1.9-4.95h-9.2L7.15 34Zm6.05-7.55h7.2l-3.5-9.25h-.2ZM27.4 34v-3.1l11.65-14.3H28.3V14h13.6v3.15L30.35 31.4H42V34ZM19.2 8.8 24 4l4.8 4.8ZM24 44l-4.8-4.8h9.6Z"/>
+        </svg>
+        Sort
+      </button>
+      <button class="show-cards">
+        <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48" class="grid-svg">
+          <path d="M6 22.5V6h16.5v16.5ZM6 42V25.5h16.5V42Zm19.5-19.5V6H42v16.5Zm0 19.5V25.5H42V42ZM9 19.5h10.5V9H9Zm19.5 0H39V9H28.5Zm0 19.5H39V28.5H28.5ZM9 39h10.5V28.5H9Zm19.5-19.5Zm0 9Zm-9 0Zm0-9Z"/>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48" class="tabs-svg">
+          <path d="M7 40q-1.2 0-2.1-.9Q4 38.2 4 37V11q0-1.2.9-2.1Q5.8 8 7 8h34q1.2 0 2.1.9.9.9.9 2.1v26q0 1.2-.9 2.1-.9.9-2.1.9Zm19.2-20.35V11H7v26h34V19.65ZM7 37V11v26Z"/>
+        </svg>
+        Layout
+      </button>
   </header>
   <main>
     <form action="" class="book-form" autocomplete="off">
@@ -95,7 +119,13 @@
         </div>
         <div id="right">
           <img src="photos/pexels-olena-bohovyk-3646105.jpg" alt="book cover photo">
-          <button class="delete">x</button>
+          <button class="delete">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-delete">
+              <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z" stroke="currentColor"></path>
+              <line x1="18" y1="9" x2="12" y2="15" stroke="red"></line>
+              <line x1="12" y1="9" x2="18" y2="15" stroke="red"></line>
+            </svg>
+          </button>
         </div>
       </article>
     </div>
