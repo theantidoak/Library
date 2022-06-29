@@ -10,12 +10,17 @@
 </head>
 <body>
   <header>
-    <button class="display-form">Add book</button>
-    <button class="organize">Organize books</button>
+    <h1>The Library</h1>
+    <div class="header-buttons">
+      <button class="display-form">Add book</button>
+      <button class="organize">Organize books</button>
+      <button class="show-cards">Show the cards</button>
+    </div>
   </header>
   <main>
     <form action="" class="book-form" autocomplete="off">
       <h2>Add Book</h2>
+      <button type="button" class="exit-form">X</button>
       <div id="titleDiv">
         <input type="text" id="titleInput" pattern='.*' required="required">
         <label for="titleInput">Title</label>

@@ -20,23 +20,43 @@ newDrawer.id = svgDrawerCount;
 stackedCabinet.appendChild(newDrawer);
 newDrawer.style.transform = 'translateY(1rem) scale(1.05)';
 cabinet.push(newDrawer);
+const showCardButton = document.querySelector('.show-cards');
+
+showCardButton.addEventListener('click', showCards);
+let shown = false;
 
 let menu = document.querySelector('menu');
 let labels = [];
+
+const exitFormButton = document.querySelector('.exit-form');
+
+document.addEventListener('click', exitForm);
+
+function exitForm(e) {
+  console.log(e.currentTarget);
+  if (!e.currentTarget.contains(exitFormButton)) {
+    form.style.display = 'none';
+    [...form.parentNode.parentNode.children]
+      .forEach((el) => [...el.children]
+        .forEach((child) => child.style.filter = 'blur(0)'));
+    form.reset();
+  }
+}
 
 cabinet.forEach((drawer) => drawer.addEventListener('click', openDrawer));
 
 function openDrawer() {
   if (this.style.transform == 'translateY(0px) scale(1)') {
-    cabinet.forEach((drawer) => {
-      drawer.style.transform = 'translateY(0px) scale(1)'
-      drawer.style.zIndex = '1'});
     this.style.transform = 'translateY(1rem) scale(1.05)';
     this.style.zIndex = '2';
     myCabinets.forEach((drawer) => {
-      drawer.style.display = 'none';
       if (this.id == drawer.dataset.drawer) {
-        drawer.style.display = 'block';
+        drawer.style.display = 'grid';
+        if (shown) {
+          drawer.style.display = 'grid';
+        } else if (!shown) {
+          drawer.classList.remove('card-cabinet-displayed');
+        }
       } 
     })
   } else if (this.style.transform == 'translateY(1rem) scale(1.05)') {
@@ -69,12 +89,17 @@ function displayForm() {
 class Book {
   constructor() {
     this.title = form.children.titleDiv.children.titleInput.value;
-    this.author = form.children.authorDiv.children.authorInput.value == '' ? '????' :
-    form.children.authorDiv.children.authorInput.value
-      .split(' ')
-      .map((up) => up[0].toUpperCase().concat(up.substring(1)))
-      .reverse()
-      .join(', ');
+    
+    let thisAuthor = form.children.authorDiv.children.authorInput.value
+    .replace(/\s{2,}/g, ' ').trim().split(' ');
+    if (thisAuthor == '') {
+      thisAuthor = 'Author?'
+    } else {
+      thisAuthor = thisAuthor.map((up) => up[0].toUpperCase().concat(up.substring(1)));
+      thisAuthor.unshift(thisAuthor.pop() + ',')
+      thisAuthor = thisAuthor.join(' ');
+    }
+    this.author = thisAuthor;
     this.pages = form.children.pagesDiv.children.pagesInput.value;
     this.year = form.children.yearDiv.children.yearInput.value;
     this.category = document.querySelector("form input[name='cat']:checked").value;
@@ -113,14 +138,16 @@ class Book {
   }
   useTabs(bookref) {
     let thisCard = document.querySelector(`article[data-bookref="${bookref}"]`);
-    thisCard.children[0].addEventListener('click', () => {
-      [...thisCard.parentElement.children].forEach((card) => {
-        card.style.zIndex = 1;
-        card.children[0].style.backgroundColor = '#E0c9A6';
-      });
+    thisCard.addEventListener('click', () => {
+      myCabinets.forEach((card) => [...card.children].forEach((child) => {
+        child.style.zIndex = 1;
+        child.children[0].style.backgroundColor = '#a97e3e';
+        child.style.backgroundColor = '#d7a963';
+      }));
       thisCard.style.zIndex = 2;
       thisCard.style.display = 'flex';
       thisCard.children[0].style.backgroundColor = '#ecd6b6';
+      thisCard.style.backgroundColor = '#ecd6b6';
     })
   }
   loopThroughLibrary() {
@@ -132,7 +159,7 @@ class Book {
       book.display();
       /*------ Create new card ------*/
       const nextCard = firstCard.cloneNode(true);
-      nextCard.children.middle.children.title.textContent = book.title == '' ? '????' : book.title;
+      nextCard.children.middle.children.title.textContent = book.title == '' ? 'Title?' : book.title;
       nextCard.children.middle.children.author.textContent = book.author = book.author;
       nextCard.children.middle.children.pages.textContent = book.pages == '' ? '???pp.' : book.pages + ' pp.';
       nextCard.children.middle.children.year.textContent = book.year == '' ? 'c.????' : 'c.' + book.year;
@@ -152,8 +179,9 @@ class Book {
       if (cardCabinet.children.length % 6 == 0 && cardCabinet.children.length != 0) {
         count = 0;
       }
+      
       nextCard.children[0].style.left = count + 'rem';
-      count += 4.1;
+      count += 4.2;
       if (document.querySelector("input[type='file']").files[0]) {
         nextCard.children.right.children[0].src = 
         URL.createObjectURL(document.querySelector("input[type='file']").files[0]);
@@ -161,7 +189,8 @@ class Book {
       nextCard.dataset.bookref = book.reference;
       nextCard.style.zIndex = myLibrary.indexOf(book) + 1;
       [...cardCabinet.children].forEach((oldCards) => {
-        oldCards.children[0].style.backgroundColor = '#E0c9A6';
+        oldCards.children[0].style.backgroundColor = '#a97e3e';
+        oldCards.style.backgroundColor = '#d7a963';
       })
       if (cardCabinet.children.length % 6 == 0 && cardCabinet.children.length != 0) {
         drawerCount += 1;
@@ -190,7 +219,13 @@ class Book {
       } 
 
       cardCabinet.dataset.drawer = drawerCount;
+      if (shown) {
+        nextCard.style.position = 'relative';
+      }
       cardCabinet.appendChild(nextCard);
+      if (shown) {
+        cardCabinet.children[cardCabinet.children.length-1].style.left = 0; 
+      }
       if (cardCabinet.children.length == 1) {
         let firstOrderName = cardCabinet.children[0].children.middle.children.author.textContent.split(' ');
         let firstMenuContent = document.createTextNode(firstOrderName.filter((bok) => {
@@ -277,4 +312,28 @@ function moveLabelWithDrawer() {
       label.style.transform = 'translateY(1rem) scale(1.05)';
     }
   })
+}
+
+
+
+function showCards() {
+  const cabinets = document.querySelectorAll('.card-cabinet');
+  if (!shown) {
+    cabinets.forEach((cabinet) => {
+      cabinet.classList.add('card-cabinet-displayed');
+      [...cabinet.children].forEach((child) => {
+        child.style.position = 'relative';
+        child.style.left = '0';
+      })
+    })
+  } else if (shown) {
+    cabinets.forEach((cabinet) => {
+      cabinet.classList.remove('card-cabinet-displayed');
+      [...cabinet.children].forEach((child) => {
+        child.style.position = 'absolute';
+        child.style.left = '.5rem';
+      })
+    })
+  }
+  shown = !shown;
 }
