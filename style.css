@@ -43,7 +43,6 @@ header > h1 {
 
 .display-form {
   grid-column: 1/2;
-  justify-self: start;
   margin-left: 3.5rem;
   
 }
@@ -315,11 +314,13 @@ article[data-bookref='00'], .card-template, svg[id='0'] {
   display: none;
   flex-direction: column;
   align-items: center;
-  padding: 1rem 0;
-  gap: .5rem;
-  width: 12rem;
+  padding: 2rem 0 0;
+  gap: 1rem;
+  width: 18rem;
+  height: 27rem;
   position: absolute;
   margin: 0 auto;
+  top: 10%;
   left: 0;
   right: 0;
   z-index: 3;
@@ -364,8 +365,8 @@ input[type='checkbox']:checked {
 }
 
 #titleDiv input, #authorDiv input, #yearDiv input, #pagesDiv input {
-  height: 1.5rem;
-  width: 9rem;
+  height: 2rem;
+  width: 12rem;
   border-radius: 10px;
   padding: .75rem .5rem;
 }
@@ -377,7 +378,7 @@ input[type='checkbox']:checked {
 #yearDiv label, #titleDiv label, #authorDiv label, #pagesDiv label {
   position: absolute;
   left: 0;
-  top: .35rem;
+  top: .45rem;
   padding-left: .65rem;
   color: grey;
   margin: 0 auto;
@@ -413,6 +414,8 @@ input[type='checkbox']:checked {
 
 .btn {
   width: 9rem;
+  border-radius: 5px;
+  height: 1.75rem;
 }
 
 footer {
