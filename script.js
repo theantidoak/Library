@@ -87,23 +87,13 @@ function displayForm() {
 
 /*------ Create Book Object ------*/
 class Book {
-  constructor() {
-    this.title = form.children.titleDiv.children.titleInput.value;
-    
-    let thisAuthor = form.children.authorDiv.children.authorInput.value
-    .replace(/\s{2,}/g, ' ').trim().split(' ');
-    if (thisAuthor == '') {
-      thisAuthor = 'Author?'
-    } else {
-      thisAuthor = thisAuthor.map((up) => up[0].toUpperCase().concat(up.substring(1)));
-      thisAuthor.unshift(thisAuthor.pop() + ',')
-      thisAuthor = thisAuthor.join(' ');
-    }
-    this.author = thisAuthor;
-    this.pages = form.children.pagesDiv.children.pagesInput.value;
-    this.year = form.children.yearDiv.children.yearInput.value;
-    this.category = document.querySelector("form input[name='cat']:checked").value;
-    this.read = form.children.readDiv.children.readInput.checked;
+  constructor(title, author, pages, year, category, read) {
+    this.title = title
+    this.author = author;
+    this.pages = pages;
+    this.year = year;
+    this.category = category;
+    this.read = read;
   }
   addReferenceNumber() {
     this.reference = this.author.substring(0, 2).toUpperCase() + 
@@ -214,13 +204,16 @@ class Book {
         stackedCabinet.appendChild(newDrawer);
         cabinet.push(newDrawer);
         cabinet.forEach((drawer) => drawer.addEventListener('click', openDrawer));
-        
         menuContent.appendChild(secondMenuContent);
+        if (cabinet.length > 3) {
+          cabinet[0].parentElement.style.position = 'absolute'
+        }
       } 
 
       cardCabinet.dataset.drawer = drawerCount;
       if (shown) {
         nextCard.style.position = 'relative';
+        myCabinets.forEach((drawer) => drawer.classList.add('card-cabinet-displayed'));
       }
       cardCabinet.appendChild(nextCard);
       if (shown) {
@@ -249,8 +242,30 @@ class Book {
 
 
 /*------ Add Book to the array and display on page ------*/
-function addBook() {
-  let newBook = new Book();
+function addBook(title, author, pages, year, category, read) {
+  let newBook;
+  if (this.type == 'button') {
+    newBook = new Book();
+    newBook.title = form.children.titleDiv.children.titleInput.value;  
+    let thisAuthor = form.children.authorDiv.children.authorInput.value
+      .replace(/\s{2,}/g, ' ').trim().split(' ');
+    if (thisAuthor == '') {
+      thisAuthor = 'Author?'
+    } else {
+      thisAuthor = thisAuthor.map((up) => up[0].toUpperCase().concat(up.substring(1)));
+      thisAuthor.unshift(thisAuthor.pop() + ',')
+      thisAuthor = thisAuthor.join(' ');
+    }
+    newBook.author = thisAuthor;
+    newBook.pages = form.children.pagesDiv.children.pagesInput.value;
+    newBook.year = form.children.yearDiv.children.yearInput.value;
+    newBook.category = document.querySelector("form input[name='cat']:checked").value;
+    newBook.read = form.children.readDiv.children.readInput.checked;
+  } else {
+    newBook = new Book(title, author, pages, year, category, read);
+    console.log('hi');
+  }
+
   if (myLibrary.some((duplicate) => {
     if (duplicate.title == newBook.title && 
     duplicate.author == newBook.author &&
@@ -260,8 +275,9 @@ function addBook() {
   })) return;
   myLibrary.push(newBook);
   newBook.loopThroughLibrary();
-  organizeButton.addEventListener('click', organizeBooks);
 }
+
+organizeButton.addEventListener('click', organizeBooks);
 
 function organizeBooks() {
   count = 0;

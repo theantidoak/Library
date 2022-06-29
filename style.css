@@ -96,10 +96,10 @@ main {
 .card-cabinet-displayed {
   display: grid;
   width: fit-content;
-  grid-template-columns: 25.5rem 25.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
   justify-items: center;
   row-gap: 1.75rem;
-  margin: 2rem;
+  margin: 2rem 1rem;
   background-color: #a97e3e;
   height: fit-content;
   padding-bottom: .5rem;
@@ -109,6 +109,7 @@ main {
 
 .card {
   display: flex;
+  flex-wrap: wrap;
   background-color: #ecd6b6;
   height: 12.5rem;
   width: clamp(8rem, 100%, 25rem);
