@@ -104,10 +104,13 @@ class Book {
     this.catalog = '#' + (myLibrary.indexOf(this) + 1).toString().padStart(4, '0');
   }
   readOrNot() {
-    document
-      .querySelector('#left input').checked = 
-      form.children.readDiv.children.readInput.checked ? true: false;
-    this.isRead = true;
+    allCards.forEach((card) => {
+      if (card.isRead) return;
+      let checked = card.querySelector('#left input');
+      checked.checked = this.read == true ? true : false;
+      card.isRead = true;
+    })
+    
   }
   display() {
     this.isDisplayed = true;
@@ -270,11 +273,22 @@ class Book {
 /*------ Add Book to the array and display on page ------*/
 function addBook(title, author, pages, year, category, read) {
   let newBook;
+  let thisAuthor;
   if (this.type == 'button') {
     newBook = new Book();
     newBook.title = form.children.titleDiv.children.titleInput.value;  
-    let thisAuthor = form.children.authorDiv.children.authorInput.value
+    thisAuthor = form.children.authorDiv.children.authorInput.value
       .replace(/\s{2,}/g, ' ').trim().split(' ');
+    
+    newBook.pages = form.children.pagesDiv.children.pagesInput.value;
+    newBook.year = form.children.yearDiv.children.yearInput.value;
+    newBook.category = document.querySelector("form input[name='cat']:checked").value;
+    newBook.read = form.children.readDiv.children.readInput.checked;
+  } else {
+    newBook = new Book(title, author, pages, year, category, read);
+    thisAuthor = newBook.author.replace(/\s{2,}/g, ' ').trim().split(' ');
+  }
+    
     if (thisAuthor == '') {
       thisAuthor = 'Author?'
     } else {
@@ -283,13 +297,6 @@ function addBook(title, author, pages, year, category, read) {
       thisAuthor = thisAuthor.join(' ');
     }
     newBook.author = thisAuthor;
-    newBook.pages = form.children.pagesDiv.children.pagesInput.value;
-    newBook.year = form.children.yearDiv.children.yearInput.value;
-    newBook.category = document.querySelector("form input[name='cat']:checked").value;
-    newBook.read = form.children.readDiv.children.readInput.checked;
-  } else {
-    newBook = new Book(title, author, pages, year, category, read);
-  }
 
   if (myLibrary.some((duplicate) => {
     if (duplicate.title == newBook.title && 

@@ -469,19 +469,24 @@ footer {
     width: 16rem;
     min-width: 9rem;
     margin-top: .25rem;
-    min-height: 20rem;
+    min-height: 21rem;
+    margin-right: 2rem;
+    margin-left: 1rem;
+    padding-left: 0;
   }
   .card-cabinet {
     grid-auto-rows: 2rem;
     margin-bottom: 2rem;
   }
   .card {
-    width: 16rem;
+    width: 15rem;
     position: relative;
-    height: 11rem;
+    height: 12rem;
+    overflow: auto;
   }
   .stacked-cabinet {
     width: 4rem;
+    margin: .5rem;
   }
   .drawer {
     width: 4rem;
@@ -497,7 +502,6 @@ footer {
     top: 5px;
   }
 
-
   .display-form::after, .populate::after, .show-cards::after, .organize::after {
     content: none;
   }
@@ -509,5 +513,20 @@ footer {
   .display-form > svg, .populate > svg, .show-cards > svg, .organize > svg {
     width: 2rem;
     height: 2rem;
+  }
+
+  #left input {
+    top: 5.25rem;
+  }
+
+  .blue-lines div:last-child {
+    display: none;
+  }
+  #middle {
+    width: 8.75rem;
+  }
+  #right {
+    margin: 0;
+    padding: 0;
   }
 }
