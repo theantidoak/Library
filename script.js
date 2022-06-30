@@ -33,6 +33,7 @@ const exitFormButton = document.querySelector('.exit-form');
 document.addEventListener('click', exitForm);
 
 
+
 function exitForm(e) {
   if (exitFormButton.contains(e.target)) {
     form.style.display = 'none';
@@ -70,8 +71,6 @@ function openDrawer() {
   }
   moveLabelWithDrawer();
 }
-
-
 
 btn.addEventListener('click', addBook);
 formDisplay.addEventListener('click', displayForm);
@@ -128,15 +127,23 @@ class Book {
   }
   useTabs(bookref) {
     let thisCard = document.querySelector(`article[data-bookref="${bookref}"]`);
-    thisCard.addEventListener('click', () => {
+    thisCard.addEventListener('click', (e) => {
+      if (thisCard.children.right.children[1].contains(e.target)) return;
       myCabinets.forEach((card) => [...card.children].forEach((child) => {
         child.style.zIndex = 1;
         child.children[0].style.backgroundColor = '#a97e3e';
         child.style.backgroundColor = '#d7a963';
+        card.style.zIndex = '1';
+        if (thisCard.parentElement.dataset.drawer == card.dataset.drawer) {
+          card.style.zIndex = myCabinets.length + 1;
+        } else if (thisCard.parentElement.dataset.drawer < card.dataset.drawer) {
+          card.style.zIndex = myCabinets.length - myCabinets.indexOf(card);
+        } else {
+          card.style.zIndex = myCabinets.indexOf(card);
+        }
       }));
       thisCard.style.zIndex = 2;
       thisCard.style.display = 'flex';
-      console.log(thisCard);
       thisCard.children[0].style.backgroundColor = '#ecd6b6';
       thisCard.style.backgroundColor = '#ecd6b6';
     })
@@ -207,7 +214,7 @@ class Book {
         cabinet.forEach((drawer) => drawer.addEventListener('click', openDrawer));
         menuContent.appendChild(secondMenuContent);
         if (cabinet.length > 3) {
-          cabinet[0].parentElement.style.position = 'absolute'
+          cabinet[0].parentElement.style.position = 'absolute';
         }
       } 
 
@@ -264,14 +271,13 @@ function addBook(title, author, pages, year, category, read) {
     newBook.read = form.children.readDiv.children.readInput.checked;
   } else {
     newBook = new Book(title, author, pages, year, category, read);
-    console.log('hi');
   }
 
   if (myLibrary.some((duplicate) => {
     if (duplicate.title == newBook.title && 
     duplicate.author == newBook.author &&
     duplicate.year == newBook.year &&
-    duplicate.year == newBook.pages)
+    duplicate.pages == newBook.pages)
     return true;
   })) return;
   myLibrary.push(newBook);
@@ -290,6 +296,7 @@ function organizeBooks() {
   myLibrary.forEach((book) => {
     book.isDisplayed = false;
   })
+  
   myLibrary.sort((a, b) => a.author.localeCompare(b.author));
   [...main.children].forEach((child) => {
     if (child.tagName == 'DIV') {
@@ -358,4 +365,30 @@ function showCards() {
     })
   }
   shown = !shown;
+}
+
+const populateButton = document.querySelector('.populate');
+populateButton.addEventListener('click', populateLibrary);
+
+function populateLibrary() {
+  // title, author, pages, year, category, read
+  addBook("The Wind-Up Bird Chronicle", "Haruki Murakami", "607", "1995", "Fiction", true);
+  addBook("War and Peace", "Leo Tolstoy", "1225", "1867", "Fiction", true);
+  addBook("Dune", "Frank Herbert", "412", "1965", "Fiction", true);
+  addBook("East of Eden", "John Steinbeck", "704", "1952", "Fiction", true);
+  addBook("The Count of Monte Cristo", "Alexandre Dumas", "636", "1846", "Fiction", true);
+  addBook("Kafka on the Shore", "Haruki Murakami", "505", "2002", "Fiction", true);
+  addBook("Fathers and Sons", "Ivan Turgenev", "226", "1862", "Fiction", true);
+  addBook("The Brothers Karamazov", "Fyodor Dostoevsky", "824", "1880", "Fiction", true);
+  addBook("Treasure Island", "Robert Louis Stevenson", "292", "1883", "Fiction", true);
+  addBook("The Castle", "Franz Kafka", "416", "1926", "Fiction", true);
+  addBook("Crime and Punishment", "Fyodor Dostoevsky", "492", "1866", "Fiction", true);
+  addBook("Anna Karenina", "Leo Tolstoy", "864", "1878", "Fiction", true);
+  addBook("A Gentleman in Moscow", "Amor Towles", "462", "2016", "Fiction", true);
+  addBook("Master and Commander", "Patrick O'Brian", "412", "1969", "Fiction", true);
+  addBook("The Trial", "Franz Kafka", "178", "1925", "Fiction", true);
+  addBook("All the Light We Cannot See", "Anthony Doerr", "544", "2014", "Fiction", true);
+  addBook("Flashman", "George MacDonald Fraser", "256", "1969", "Fiction", true);
+  addBook("The Garden of Evening Mists", "Tan Twan Eng", "448", "2012", "Fiction", true);
+  organizeBooks();
 }
