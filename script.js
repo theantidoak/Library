@@ -55,7 +55,7 @@ function openDrawer() {
         if (shown) {
           drawer.style.display = 'grid';
         } else if (!shown) {
-          drawer.classList.remove('card-cabinet-displayed');
+          drawer.classList.replace('card-cabinet-displayed', 'card-cabinet');
         }
       } 
     })
@@ -136,6 +136,7 @@ class Book {
       }));
       thisCard.style.zIndex = 2;
       thisCard.style.display = 'flex';
+      console.log(thisCard);
       thisCard.children[0].style.backgroundColor = '#ecd6b6';
       thisCard.style.backgroundColor = '#ecd6b6';
     })
@@ -213,7 +214,7 @@ class Book {
       cardCabinet.dataset.drawer = drawerCount;
       if (shown) {
         nextCard.style.position = 'relative';
-        myCabinets.forEach((drawer) => drawer.classList.add('card-cabinet-displayed'));
+        myCabinets.forEach((drawer) => drawer.classList.replace('card-cabinet', 'card-cabinet-displayed'));
       }
       cardCabinet.appendChild(nextCard);
       if (shown) {
@@ -333,14 +334,13 @@ function moveLabelWithDrawer() {
 
 
 function showCards() {
-  const cabinets = document.querySelectorAll('.card-cabinet');
   const gridSVG = document.querySelector('.grid-svg');
   const tabsSVG = document.querySelector('.tabs-svg');
   if (!shown) {
     gridSVG.style.display = 'block';
     tabsSVG.style.display = 'none';
-    cabinets.forEach((cabinet) => {
-      cabinet.classList.add('card-cabinet-displayed');
+    myCabinets.forEach((cabinet) => {
+      cabinet.classList.replace('card-cabinet', 'card-cabinet-displayed');
       [...cabinet.children].forEach((child) => {
         child.style.position = 'relative';
         child.style.left = '0';
@@ -349,8 +349,8 @@ function showCards() {
   } else if (shown) {
     gridSVG.style.display = 'none';
     tabsSVG.style.display = 'block';
-    cabinets.forEach((cabinet) => {
-      cabinet.classList.remove('card-cabinet-displayed');
+    myCabinets.forEach((cabinet) => {
+      cabinet.classList.replace('card-cabinet-displayed', 'card-cabinet');
       [...cabinet.children].forEach((child) => {
         child.style.position = 'absolute';
         child.style.left = '.5rem';
