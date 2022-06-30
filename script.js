@@ -367,7 +367,7 @@ function showCards() {
     tabsSVG.style.display = 'none';
     myCabinets.forEach((cabinet) => {
       cabinet.classList.replace('card-cabinet', 'card-cabinet-displayed');
-      if (window.innerHeight < 560) return;
+      if (window.innerWidth < 600) return;
       [...cabinet.children].forEach((child) => {
         child.style.position = 'relative';
         child.style.left = '0';
@@ -378,7 +378,7 @@ function showCards() {
     tabsSVG.style.display = 'block';
     myCabinets.forEach((cabinet) => {
       cabinet.classList.replace('card-cabinet-displayed', 'card-cabinet');
-      if (window.innerWidth < 560) return;
+      if (window.innerWidth < 600) return;
       [...cabinet.children].forEach((child) => {
         child.style.position = 'absolute';
         child.style.left = '.5rem';

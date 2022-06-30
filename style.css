@@ -457,7 +457,7 @@ footer {
   background-color: transparent;
 }
 
-@media screen and (max-width: 560px ) {
+@media screen and (max-width: 600px ) {
   #right img {
     display: none;
   }
