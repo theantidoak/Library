@@ -45,11 +45,29 @@ header > h1 {
 .display-form {
   grid-column: 1/2;
   margin-left: 3.5rem;
+  align-self: center;
   
 }
 
-.display-form > svg {
+.display-form::after {
+  content: "Add a Book";
+}
+
+.organize::after {
+  content: 'Sort'
+}
+
+.populate::after {
+  content: 'Populate'
+}
+
+.show-cards::after {
+  content: 'Layout'
+}
+
+.display-form > svg, .organize > svg, .show-cards > svg, .populate > svg {
   width: 3rem;
+  height: 3rem;
 }
 
 .display-form, .organize, .show-cards, .populate {
@@ -60,7 +78,7 @@ header > h1 {
   padding: 0;
   display: flex;
   align-items: center;
-  
+  gap: .25rem;
 }
 
 .organize, .show-cards, .populate {
@@ -100,7 +118,7 @@ main {
 
 .card-cabinet-displayed {
   display: grid;
-  width: fit-content;
+  /* width: fit-content; */
   width: clamp(26rem, 98%, 80rem);
   height: max-content;
   grid-template-columns: repeat(auto-fit, 26rem);
@@ -117,7 +135,7 @@ main {
   background-color: #ecd6b6;
   height: max-content;
   min-height: 3.5rem;
-  width: clamp(8rem, 100%, 25rem);
+  width: clamp(15rem, 100%, 25rem);
   font-family: 'secret_typewriterregular';
   position: absolute;
   top: 0;
@@ -426,7 +444,11 @@ input[type='checkbox']:checked {
   border-radius: 5px;
   height: 1.75rem;
 }
-
+@media screen and (max-width: 560px ) {
+  #right img {
+    display: none;
+  }
+}
 footer {
   height: 2rem;
   width: 100%;
@@ -435,8 +457,57 @@ footer {
   background-color: transparent;
 }
 
-/* @media screen and (max-width: 560px ) {
+@media screen and (max-width: 560px ) {
   #right img {
     display: none;
   }
-} */
+  main {
+    padding-left: .5rem;
+    justify-items: center;
+  }
+  .card-cabinet, .card-cabinet-displayed {
+    width: 16rem;
+    min-width: 9rem;
+    margin-top: .25rem;
+    min-height: 20rem;
+  }
+  .card-cabinet {
+    grid-auto-rows: 2rem;
+    margin-bottom: 2rem;
+  }
+  .card {
+    width: 16rem;
+    position: relative;
+    height: 11rem;
+  }
+  .stacked-cabinet {
+    width: 4rem;
+  }
+  .drawer {
+    width: 4rem;
+  }
+  menu {
+    display: none;
+  }
+  .card .tab {
+    display: none;
+  }
+  #catalog {
+    position: absolute;
+    top: 5px;
+  }
+
+
+  .display-form::after, .populate::after, .show-cards::after, .organize::after {
+    content: none;
+  }
+
+  .display-form {
+    justify-self: center;
+    margin: 0;
+  }
+  .display-form > svg, .populate > svg, .show-cards > svg, .organize > svg {
+    width: 2rem;
+    height: 2rem;
+  }
+}

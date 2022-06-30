@@ -1,5 +1,6 @@
 let myLibrary = [];
 let myCabinets = [];
+let allCards = [];
 
 let count = 0;
 let drawerCount = 1;
@@ -127,10 +128,26 @@ class Book {
   }
   useTabs(bookref) {
     let thisCard = document.querySelector(`article[data-bookref="${bookref}"]`);
+    
     thisCard.addEventListener('click', (e) => {
       if (thisCard.children.right.children[1].contains(e.target)) return;
       myCabinets.forEach((card) => [...card.children].forEach((child) => {
-        child.style.zIndex = 1;
+        child.style.zIndex = allCards.indexOf(child);
+        if (child.parentElement.classList.contains('card-cabinet')) { 
+          if (thisCard == child) {
+            child.style.zIndex = allCards.length;
+            child.children.left.children[0].style.top = '5px';
+            child.children.left.children[0].style.bottom = 'auto';
+          } else if (allCards.indexOf(child) < allCards.indexOf(thisCard)) {
+            child.style.zIndex = allCards.indexOf(child);
+            child.children.left.children[0].style.top = '5px';
+            child.children.left.children[0].style.bottom = 'auto';
+          } else {
+            child.style.zIndex = allCards.length - allCards.indexOf(child);
+            child.children.left.children[0].style.bottom = '2px';
+            child.children.left.children[0].style.top = 'auto';
+          }
+        }
         child.children[0].style.backgroundColor = '#a97e3e';
         child.style.backgroundColor = '#d7a963';
         card.style.zIndex = '1';
@@ -142,7 +159,7 @@ class Book {
           card.style.zIndex = myCabinets.indexOf(card);
         }
       }));
-      thisCard.style.zIndex = 2;
+      
       thisCard.style.display = 'flex';
       thisCard.children[0].style.backgroundColor = '#ecd6b6';
       thisCard.style.backgroundColor = '#ecd6b6';
@@ -224,6 +241,7 @@ class Book {
         myCabinets.forEach((drawer) => drawer.classList.replace('card-cabinet', 'card-cabinet-displayed'));
       }
       cardCabinet.appendChild(nextCard);
+      allCards.push(nextCard);
       if (shown) {
         cardCabinet.children[cardCabinet.children.length-1].style.left = 0; 
       }
@@ -343,11 +361,13 @@ function moveLabelWithDrawer() {
 function showCards() {
   const gridSVG = document.querySelector('.grid-svg');
   const tabsSVG = document.querySelector('.tabs-svg');
+  
   if (!shown) {
     gridSVG.style.display = 'block';
     tabsSVG.style.display = 'none';
     myCabinets.forEach((cabinet) => {
       cabinet.classList.replace('card-cabinet', 'card-cabinet-displayed');
+      if (window.innerHeight < 560) return;
       [...cabinet.children].forEach((child) => {
         child.style.position = 'relative';
         child.style.left = '0';
@@ -358,6 +378,7 @@ function showCards() {
     tabsSVG.style.display = 'block';
     myCabinets.forEach((cabinet) => {
       cabinet.classList.replace('card-cabinet-displayed', 'card-cabinet');
+      if (window.innerWidth < 560) return;
       [...cabinet.children].forEach((child) => {
         child.style.position = 'absolute';
         child.style.left = '.5rem';
@@ -391,4 +412,7 @@ function populateLibrary() {
   addBook("Flashman", "George MacDonald Fraser", "256", "1969", "Fiction", true);
   addBook("The Garden of Evening Mists", "Tan Twan Eng", "448", "2012", "Fiction", true);
   organizeBooks();
+  myCabinets.forEach((cabinet) => cabinet.style.display = 'grid');
+  cabinet.forEach((drawer) => drawer.style.transform = 'translateY(1rem) scale(1.05)');
+  moveLabelWithDrawer();
 }
