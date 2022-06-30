@@ -25,7 +25,7 @@ body {
 }
 
 header {
-  min-height: 7rem;
+  min-height: 8rem;
   width: 100%;
   background-color: #75ACFF;
   display: grid;
@@ -44,12 +44,11 @@ header > h1 {
 
 .display-form {
   grid-column: 1/2;
-  margin-left: 3.5rem;
   align-self: center;
-  
+  justify-self: center;
 }
 
-.display-form::after {
+/* .display-form::after {
   content: "Add a Book";
 }
 
@@ -63,7 +62,7 @@ header > h1 {
 
 .show-cards::after {
   content: 'Layout'
-}
+} */
 
 .display-form > svg, .organize > svg, .show-cards > svg, .populate > svg {
   width: 3rem;
@@ -444,11 +443,7 @@ input[type='checkbox']:checked {
   border-radius: 5px;
   height: 1.75rem;
 }
-@media screen and (max-width: 560px ) {
-  #right img {
-    display: none;
-  }
-}
+
 footer {
   height: 2rem;
   width: 100%;
@@ -457,7 +452,41 @@ footer {
   background-color: transparent;
 }
 
-@media screen and (max-width: 600px ) {
+.mobile-instructions {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  top: 9.75rem;
+  background-color: #75ACFF;
+  border-radius: 10px;
+  width: fit-content;
+  padding: .5rem;
+}
+.mobile-instructions > * {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.mobile-instructions svg {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+.mobile-instructions p {
+  padding: 0;
+  margin: 0;
+}
+
+@media screen and (max-width: 600px) {
+  .mobile-instructions {
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 9rem;
+  }
   #right img {
     display: none;
   }
@@ -502,9 +531,7 @@ footer {
     top: 5px;
   }
 
-  .display-form::after, .populate::after, .show-cards::after, .organize::after {
-    content: none;
-  }
+
 
   .display-form {
     justify-self: center;
