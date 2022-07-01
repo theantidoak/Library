@@ -140,7 +140,6 @@ class Book {
       nextCard.children.left.children[3].children[0].checked = book.read;
       nextCard.children.middle.children.author.textContent = book.author;
       nextCard.children.right.children[0].src = book.image;
-      
       /*------ Create initials tab for card ------*/
       nextCard.children[0].textContent = book.author.split(' ')
         .filter((bok) => {
@@ -152,19 +151,8 @@ class Book {
         .join(', ');
       nextCard.dataset.bookref = book.reference;
       nextCard.style.zIndex = myLibrary.indexOf(book) + 1;
-      cardCabinet.dataset.drawer = drawerCount;
 
-      if (cardCabinet.children.length == 1) {
-        /*------ Add label with first initials to cabinet drawer------*/
-        let firstInitials = cardCabinet.children[0].children.middle.children.author.textContent.split(' ');
-        let firstInitialsText = document.createTextNode(firstInitials.filter((bok) => {
-          if (firstInitials.indexOf(bok) == 0 || firstInitials.indexOf(bok) == firstInitials.length - 1) {
-              return bok;}}).map((it) => it[0]) + ' - ');
-        menuContent = document.createElement('li');
-        menuContent.appendChild(firstInitialsText); 
-        menu.appendChild(menuContent);
-        labels.push(menuContent);
-      } else if (cardCabinet.children.length % 6 == 0 && cardCabinet.children.length != 0) {
+      if (cardCabinet.children.length % 6 == 0 && cardCabinet.children.length != 0) {
         drawerCount += 1;
         svgDrawerCount += 1;
         /*------ Add ending intials to cabinet drawer ------*/
@@ -195,11 +183,22 @@ class Book {
       nextCard.children[0].style.left = (cardCabinet.children.length * 4.2) + 'rem';
       cardCabinet.appendChild(nextCard);
 
+      if (cardCabinet.children.length == 1) {
+        /*------ Add label with first initials to cabinet drawer------*/
+        let firstInitials = cardCabinet.children[0].children.middle.children.author.textContent.split(' ');
+        let firstInitialsText = document.createTextNode(firstInitials.filter((bok) => {
+          if (firstInitials.indexOf(bok) == 0 || firstInitials.indexOf(bok) == firstInitials.length - 1) {
+              return bok;}}).map((it) => it[0]) + ' - ');
+        menuContent = document.createElement('li');
+        menuContent.appendChild(firstInitialsText); 
+        menu.appendChild(menuContent);
+        labels.push(menuContent);
+      } 
       if (gridShown) {
         nextCard.style.position = 'relative';
         myCabinets.forEach((thisCardCabinet) => thisCardCabinet.classList.replace('card-cabinet', 'card-cabinet-displayed'));
       }
-      
+      cardCabinet.dataset.drawer = drawerCount;
       let bookref = nextCard.dataset.bookref;
       allCards.push(nextCard);
       book.deleteCard(bookref);

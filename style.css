@@ -48,22 +48,6 @@ header > h1 {
   justify-self: center;
 }
 
-/* .display-form::after {
-  content: "Add a Book";
-}
-
-.organize::after {
-  content: 'Sort'
-}
-
-.populate::after {
-  content: 'Populate'
-}
-
-.show-cards::after {
-  content: 'Layout'
-} */
-
 .display-form > svg, .organize > svg, .show-cards > svg, .populate > svg {
   width: 3rem;
   height: 3rem;
@@ -97,6 +81,7 @@ main {
   padding-top: 1rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
+  justify-items: center;
   grid-auto-rows: max-content;
   background-color: #005AFF;
   padding-left: 9rem;
