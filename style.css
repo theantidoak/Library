@@ -103,7 +103,7 @@ main {
 .card-cabinet-displayed {
   display: grid;
   /* width: fit-content; */
-  width: clamp(26rem, 98%, 80rem);
+  width: clamp(26rem, 75%, 80rem);
   height: max-content;
   grid-template-columns: repeat(auto-fit, 26rem);
   align-items: center;
