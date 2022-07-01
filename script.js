@@ -152,8 +152,6 @@ class Book {
         .join(', ');
       nextCard.dataset.bookref = book.reference;
       nextCard.style.zIndex = myLibrary.indexOf(book) + 1;
-      nextCard.children[0].style.left = (cardCabinet.children.length * 4.2) + 'rem';
-      cardCabinet.appendChild(nextCard);
       cardCabinet.dataset.drawer = drawerCount;
 
       if (cardCabinet.children.length == 1) {
@@ -169,7 +167,6 @@ class Book {
       } else if (cardCabinet.children.length % 6 == 0 && cardCabinet.children.length != 0) {
         drawerCount += 1;
         svgDrawerCount += 1;
-
         /*------ Add ending intials to cabinet drawer ------*/
         let secondInitials = cardCabinet.children[5].children.middle.children.author.textContent.split(' ');
         let secondInitialsText = document.createTextNode(secondInitials.filter((bok) => {
@@ -194,10 +191,15 @@ class Book {
         fileCabinet[0].parentElement.style.position = fileCabinet.length > 3 ? 
           'absolute': 'fixed';
       }
+
+      nextCard.children[0].style.left = (cardCabinet.children.length * 4.2) + 'rem';
+      cardCabinet.appendChild(nextCard);
+
       if (gridShown) {
         nextCard.style.position = 'relative';
         myCabinets.forEach((thisCardCabinet) => thisCardCabinet.classList.replace('card-cabinet', 'card-cabinet-displayed'));
       }
+      
       let bookref = nextCard.dataset.bookref;
       allCards.push(nextCard);
       book.deleteCard(bookref);
