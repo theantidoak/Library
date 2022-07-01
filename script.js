@@ -167,11 +167,8 @@ class Book {
         menu.appendChild(menuContent);
         labels.push(menuContent);
       } else if (cardCabinet.children.length % 6 == 0 && cardCabinet.children.length != 0) {
-        
-        /*------ Data-attributes for card-cabinet and drawers ------*/
         drawerCount += 1;
         svgDrawerCount += 1;
-        newDrawer.style.transform = 'translateY(0) scale(1)';
 
         /*------ Add ending intials to cabinet drawer ------*/
         let secondInitials = cardCabinet.children[5].children.middle.children.author.textContent.split(' ');

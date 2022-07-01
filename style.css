@@ -341,15 +341,16 @@ article[data-bookref='00'], .card-template, svg[id='0'] {
   flex-direction: column;
   align-items: center;
   padding: 2rem 0 0;
-  gap: 1rem;
-  width: 18rem;
-  height: 27rem;
+  gap: .75rem;
+  width: 16rem;
+  height: 25rem;
   position: absolute;
   margin: 0 auto;
   top: 10%;
   left: 0;
   right: 0;
   z-index: 100;
+  border-radius: 15px;
 }
 
 .book-form h2 {
