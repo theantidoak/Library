@@ -31,17 +31,14 @@ populateButton.addEventListener('click', populateLibrary);
 
 let menu = document.querySelector('menu');
 let menuContent;
-
 let cardCabinet = document.querySelector('.card-cabinet');
 let myCabinets = [cardCabinet];
-
 let newDrawer = document.querySelector('.drawer').cloneNode(true);
 newDrawer.id = svgDrawerCount;
 stackedCabinet.appendChild(newDrawer);
 newDrawer.style.transform = 'translateY(1rem) scale(1.05)';
+newDrawer.addEventListener('click', openDrawer);
 let fileCabinet = [newDrawer];
-fileCabinet.forEach((drawer) => drawer.addEventListener('click', openDrawer));
-
 
 /*------ Create Book Object ------*/
 class Book {
@@ -125,13 +122,13 @@ class Book {
       nextCard.style.backgroundColor = '#ecd6b6';
     })
   }
+  /*------ Big Function for creating and appending book cards and cabinets ------*/ 
   loopThroughLibrary() {
     myLibrary.forEach((book) => {
       if (book.isDisplayed == true) return;
       book.addCatalogNumber();
       book.addReferenceNumber();
       book.display();
-      
       /*------ Create new card ------*/
       const nextCard = firstCard.cloneNode(true);
       nextCard.children.middle.children.title.textContent = book.title == '' ? 'Title?' : book.title;
@@ -144,7 +141,7 @@ class Book {
       nextCard.children.middle.children.author.textContent = book.author;
       nextCard.children.right.children[0].src = book.img;
       
-      // Tab with Initials
+      /*------ Create initials tab for card ------*/
       nextCard.children[0].textContent = book.author.split(' ')
         .filter((bok) => {
           if (book.author.split(' ').indexOf(bok) == 0 || 
@@ -160,8 +157,7 @@ class Book {
       cardCabinet.dataset.drawer = drawerCount;
 
       if (cardCabinet.children.length == 1) {
-
-        // Add label with first initials to cabinet drawer
+        /*------ Add label with first initials to cabinet drawer------*/
         let firstInitials = cardCabinet.children[0].children.middle.children.author.textContent.split(' ');
         let firstInitialsText = document.createTextNode(firstInitials.filter((bok) => {
           if (firstInitials.indexOf(bok) == 0 || firstInitials.indexOf(bok) == firstInitials.length - 1) {
@@ -172,25 +168,25 @@ class Book {
         labels.push(menuContent);
       } else if (cardCabinet.children.length % 6 == 0 && cardCabinet.children.length != 0) {
         
-        // Data-attribute for card-cabinet and drawer
+        /*------ Data-attributes for card-cabinet and drawers ------*/
         drawerCount += 1;
         svgDrawerCount += 1;
         newDrawer.style.transform = 'translateY(0) scale(1)';
 
-        // Add ending intials to cabinet drawer
+        /*------ Add ending intials to cabinet drawer ------*/
         let secondInitials = cardCabinet.children[5].children.middle.children.author.textContent.split(' ');
         let secondInitialsText = document.createTextNode(secondInitials.filter((bok) => {
           if (secondInitials.indexOf(bok) == 0 || secondInitials.indexOf(bok) == secondInitials.length - 1) {
             return bok;}}).map((it) => it[0]));
         menuContent.appendChild(secondInitialsText);
         
-        // Create new card cabinet
+        /*------ Create new card cabinet ------*/
         cardCabinet = document.createElement('div');
         cardCabinet.classList.add('card-cabinet');
         main.appendChild(cardCabinet);
         myCabinets.push(cardCabinet);
         
-        // Create new cabinet drawer
+        /*------ Create new cabinet drawer ------*/
         newDrawer = document.querySelector('.drawer').cloneNode(true);
         newDrawer.id = svgDrawerCount;
         newDrawer.style.transform = 'translateY(1rem) scale(1.05)';
@@ -215,8 +211,8 @@ class Book {
   } 
 }
 
+/*------ Delete button on the Add book form ------*/
 function exitForm(e) {
-
   if (exitFormButton.contains(e.target)) {
     form.style.display = 'none';
     [...form.parentNode.parentNode.children]
@@ -226,9 +222,8 @@ function exitForm(e) {
   }
 }
 
-
+/*------ Open the drawer and display the card cabinet ------*/
 function openDrawer() {
-
   if (this.style.transform == 'translateY(0px) scale(1)') {
     this.style.transform = 'translateY(1rem) scale(1.05)';
     this.style.zIndex = '2';
@@ -252,6 +247,8 @@ function openDrawer() {
   moveLabelWithDrawer();
 }
 
+
+/*------ Display the Add book form ------*/
 function displayForm() {
   [...form.parentNode.parentNode.children]
     .forEach((el) => [...el.children]
@@ -264,6 +261,7 @@ function displayForm() {
 function addBook(title, author, pages, year, category, read) {
   let newBook;
   let thisAuthor;
+  /*------ If data comes from the Add book form ------*/
   if (this.type == 'button') {
     newBook = new Book();
     newBook.title = form.children.titleDiv.children.titleInput.value;  
@@ -277,6 +275,7 @@ function addBook(title, author, pages, year, category, read) {
       URL.createObjectURL(document.querySelector("input[type='file']").files[0]) : 
       firstCard.children.right.children[0].src;
   } else {
+    /*------ If data comes from internal source ------*/
     newBook = new Book(title, author, pages, year, category, read);
     newBook.img = "photos/pexels-olena-bohovyk-3646105.jpg";
     thisAuthor = newBook.author.replace(/\s{2,}/g, ' ').trim().split(' ');
@@ -302,7 +301,7 @@ function addBook(title, author, pages, year, category, read) {
   newBook.loopThroughLibrary();
 }
 
-
+/*------ Sort Alphabetically ------*/
 function organizeBooks() {
   drawerCount = 1;
   svgDrawerCount = 1;
@@ -312,10 +311,10 @@ function organizeBooks() {
   myLibrary.forEach((book) => {
     book.isDisplayed = false;
   });
-  
+
   this.tagName == 'BUTTON' ? myLibrary.sort((a, b) => a.author.localeCompare(b.author)) :
     null;
-
+  
   [...main.children].forEach((child) => {
     if (child.tagName == 'DIV') {
       while (child.firstChild) {
@@ -325,8 +324,6 @@ function organizeBooks() {
     }
   });
   menu = document.createElement('menu');
-  
-
   fileCabinet.push(newDrawer);
   myCabinets.push(cardCabinet);
   newDrawer.id = svgDrawerCount;
@@ -337,9 +334,8 @@ function organizeBooks() {
   new Book().loopThroughLibrary();
 }
 
-
+/*------ Move the label with initials when the drawer is opened ------*/
 function moveLabelWithDrawer() {
-
   if (labels.length < 1) return;
   fileCabinet.forEach((drawer) => {
     let index = fileCabinet.indexOf(drawer);
@@ -353,11 +349,10 @@ function moveLabelWithDrawer() {
   })
 }
 
-
+/*------ Display the cards in grid format or tab format ------*/
 function showCards() {
   const gridSVG = document.querySelector('.grid-svg');
   const tabsSVG = document.querySelector('.tabs-svg');
-  
   if (!gridShown) {
     gridSVG.style.display = 'block';
     tabsSVG.style.display = 'none';
@@ -383,6 +378,7 @@ function showCards() {
 }
 
 
+/*------ Use some of my favorite books to populate the library ------*/
 function populateLibrary() {
   // title, author, pages, year, category, read
   addBook("The Wind-Up Bird Chronicle", "Haruki Murakami", "607", "1995", "Fiction", true);
