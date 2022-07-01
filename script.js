@@ -66,9 +66,9 @@ class Book {
     this.isDisplayed = true;
   }
   deleteCard(bookref) {
-    let thisCard = document.querySelector(`article[data-bookref="${bookref}"]`);
-    thisCard.children.right.children[1].addEventListener('click', () => {
-      thisCard.parentNode.removeChild(thisCard);
+    let nextCard = document.querySelector(`article[data-bookref="${bookref}"]`);
+    nextCard.children.right.children[1].addEventListener('click', () => {
+      nextCard.parentNode.removeChild(nextCard);
       myLibrary = myLibrary.filter((book) => book.author != this.author)
     });
   }
@@ -80,20 +80,21 @@ class Book {
     form.reset();
   }
   useTabs(bookref) {
-    let thisCard = document.querySelector(`article[data-bookref="${bookref}"]`);
-    thisCard.addEventListener('click', (e) => {
-      const deleteCardBtn = thisCard.children.right.children[1];
+    let nextCard = document.querySelector(`article[data-bookref="${bookref}"]`);
+    nextCard.addEventListener('click', (e) => {
+      const deleteCardBtn = nextCard.children.right.children[1];
       if (deleteCardBtn.contains(e.target)) return;
-      myCabinets.forEach((thisCardCabinet) => [...thisCardCabinet.children].forEach((card) => {
+      myCabinets.forEach((thisCardCabinet) => [...thisCardCabinet.children]
+        .forEach((card) => {
         if (card.parentElement.classList.contains('card-cabinet') &&
           window.innerWidth < 600) { 
             card.style.zIndex = allCards.indexOf(card);
             let catalogNum = card.children.left.children[0];
-          if (thisCard == card) {
+          if (nextCard == card) {
             card.style.zIndex = allCards.length;
             catalogNum.style.top = '5px';
             catalogNum.style.bottom = 'auto';
-          } else if (allCards.indexOf(card) < allCards.indexOf(thisCard)) {
+          } else if (allCards.indexOf(card) < allCards.indexOf(nextCard)) {
             card.style.zIndex = allCards.indexOf(card);
             catalogNum.style.top = '5px';
             catalogNum.style.bottom = 'auto';
@@ -103,26 +104,25 @@ class Book {
             catalogNum.style.top = 'auto';
           }
         } else {
-          if (card == thisCard) {
+          if (card == nextCard) {
             card.style.zIndex = '2';
-          } else if (card.parentElement == thisCard.parentElement) {
+          } else if (card.parentElement == nextCard.parentElement) {
             card.style.zIndex = '1';
           }
         }
-        thisCardCabinet.style.zIndex = '1';
         card.children[0].style.backgroundColor = '#a97e3e';
         card.style.backgroundColor = '#d7a963';
-        if (thisCard.parentElement.dataset.drawer == thisCardCabinet.dataset.drawer) {
+        if (nextCard.parentElement.dataset.drawer == thisCardCabinet.dataset.drawer) {
           thisCardCabinet.style.zIndex = myCabinets.length + 1;
-        } else if (thisCard.parentElement.dataset.drawer < thisCardCabinet.dataset.drawer) {
+        } else if (nextCard.parentElement.dataset.drawer < thisCardCabinet.dataset.drawer) {
           thisCardCabinet.style.zIndex = myCabinets.length - myCabinets.indexOf(thisCardCabinet);
         } else {
           thisCardCabinet.style.zIndex = myCabinets.indexOf(thisCardCabinet);
         }
       }));
-      thisCard.style.display = 'flex';
-      thisCard.children[0].style.backgroundColor = '#ecd6b6';
-      thisCard.style.backgroundColor = '#ecd6b6';
+      nextCard.style.display = 'flex';
+      nextCard.children[0].style.backgroundColor = '#ecd6b6';
+      nextCard.style.backgroundColor = '#ecd6b6';
     })
   }
   loopThroughLibrary() {
@@ -203,7 +203,7 @@ class Book {
       }
       if (gridShown) {
         nextCard.style.position = 'relative';
-        myCabinets.forEach((drawer) => drawer.classList.replace('card-cabinet', 'card-cabinet-displayed'));
+        myCabinets.forEach((thisCardCabinet) => thisCardCabinet.classList.replace('card-cabinet', 'card-cabinet-displayed'));
       }
       let bookref = nextCard.dataset.bookref;
       allCards.push(nextCard);
@@ -232,20 +232,20 @@ function openDrawer() {
   if (this.style.transform == 'translateY(0px) scale(1)') {
     this.style.transform = 'translateY(1rem) scale(1.05)';
     this.style.zIndex = '2';
-    myCabinets.forEach((drawer) => {
-      if (this.id == drawer.dataset.drawer) {
-        drawer.style.display = 'grid';
+    myCabinets.forEach((thisCardCabinet) => {
+      if (this.id == thisCardCabinet.dataset.drawer) {
+        thisCardCabinet.style.display = 'grid';
         if (!gridShown) {
-          drawer.classList.replace('card-cabinet-displayed', 'card-cabinet');
+          thisCardCabinet.classList.replace('card-cabinet-displayed', 'card-cabinet');
         }
       } 
     })
   } else if (this.style.transform == 'translateY(1rem) scale(1.05)') {
     this.style.transform = 'translateY(0) scale(1)';
     this.style.zIndex = '1';
-    myCabinets.forEach((drawer) => {
-      if (this.id == drawer.dataset.drawer) {
-        drawer.style.display = 'none';
+    myCabinets.forEach((thisCardCabinet) => {
+      if (this.id == thisCardCabinet.dataset.drawer) {
+        thisCardCabinet.style.display = 'none';
       } 
     })
   }
@@ -313,7 +313,9 @@ function organizeBooks() {
     book.isDisplayed = false;
   });
   
-  myLibrary.sort((a, b) => a.author.localeCompare(b.author));
+  this.tagName == 'BUTTON' ? myLibrary.sort((a, b) => a.author.localeCompare(b.author)) :
+    null;
+
   [...main.children].forEach((child) => {
     if (child.tagName == 'DIV') {
       while (child.firstChild) {
@@ -359,20 +361,20 @@ function showCards() {
   if (!gridShown) {
     gridSVG.style.display = 'block';
     tabsSVG.style.display = 'none';
-    myCabinets.forEach((cabinet) => {
-      cabinet.classList.replace('card-cabinet', 'card-cabinet-displayed');
+    myCabinets.forEach((thisCardCabinet) => {
+      thisCardCabinet.classList.replace('card-cabinet', 'card-cabinet-displayed');
       if (window.innerWidth < 600) return;
-      [...cabinet.children].forEach((child) => {
+      [...thisCardCabinet.children].forEach((child) => {
         child.style.position = 'relative';
       })
     })
   } else if (gridShown) {
     gridSVG.style.display = 'none';
     tabsSVG.style.display = 'block';
-    myCabinets.forEach((cabinet) => {
-      cabinet.classList.replace('card-cabinet-displayed', 'card-cabinet');
+    myCabinets.forEach((thisCardCabinet) => {
+      thisCardCabinet.classList.replace('card-cabinet-displayed', 'card-cabinet');
       if (window.innerWidth < 600) return;
-      [...cabinet.children].forEach((child) => {
+      [...thisCardCabinet.children].forEach((child) => {
         child.style.position = 'absolute';
       })
     })
@@ -402,7 +404,7 @@ function populateLibrary() {
   addBook("Flashman", "George MacDonald Fraser", "256", "1969", "Fiction", true);
   addBook("The Garden of Evening Mists", "Tan Twan Eng", "448", "2012", "Fiction", true);
   organizeBooks();
-  myCabinets.forEach((cabinet) => cabinet.style.display = 'grid');
+  myCabinets.forEach((thisCardCabinet) => thisCardCabinet.style.display = 'grid');
   fileCabinet.forEach((drawer) => drawer.style.transform = 'translateY(1rem) scale(1.05)');
   moveLabelWithDrawer();
 }
