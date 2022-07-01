@@ -42,14 +42,14 @@ let fileCabinet = [newDrawer];
 
 /*------ Create Book Object ------*/
 class Book {
-  constructor(title, author, pages, year, category, read, img) {
+  constructor(title, author, pages, year, category, read, image) {
     this.title = title
     this.author = author;
     this.pages = pages;
     this.year = year;
     this.category = category;
     this.read = read;
-    this.img = img;
+    this.image = image;
   }
   addReferenceNumber() {
     this.reference = this.author.substring(0, 2).toUpperCase() + 
@@ -139,7 +139,7 @@ class Book {
       nextCard.children.left.children.reference.textContent = book.reference;
       nextCard.children.left.children[3].children[0].checked = book.read;
       nextCard.children.middle.children.author.textContent = book.author;
-      nextCard.children.right.children[0].src = book.img;
+      nextCard.children.right.children[0].src = book.image;
       
       /*------ Create initials tab for card ------*/
       nextCard.children[0].textContent = book.author.split(' ')
@@ -257,7 +257,7 @@ function displayForm() {
 }
 
 /*------ Add Book to the array and display on page ------*/
-function addBook(title, author, pages, year, category, read) {
+function addBook(title, author, pages, year, category, read, image) {
   let newBook;
   let thisAuthor;
   /*------ If data comes from the Add book form ------*/
@@ -270,13 +270,12 @@ function addBook(title, author, pages, year, category, read) {
     newBook.year = form.children.yearDiv.children.yearInput.value;
     newBook.category = document.querySelector("form input[name='cat']:checked").value;
     newBook.read = form.children.readDiv.children.readInput.checked;
-    newBook.img = document.querySelector("input[type='file']").files[0] ? 
+    newBook.image = document.querySelector("input[type='file']").files[0] ? 
       URL.createObjectURL(document.querySelector("input[type='file']").files[0]) : 
       firstCard.children.right.children[0].src;
   } else {
     /*------ If data comes from internal source ------*/
-    newBook = new Book(title, author, pages, year, category, read);
-    newBook.img = "photos/pexels-olena-bohovyk-3646105.jpg";
+    newBook = new Book(title, author, pages, year, category, read, image);
     thisAuthor = newBook.author.replace(/\s{2,}/g, ' ').trim().split(' ');
   }
     
@@ -376,28 +375,27 @@ function showCards() {
   gridShown = !gridShown;
 }
 
-
 /*------ Use some of my favorite books to populate the library ------*/
 function populateLibrary() {
-  // title, author, pages, year, category, read
-  addBook("The Wind-Up Bird Chronicle", "Haruki Murakami", "607", "1995", "Fiction", true);
-  addBook("War and Peace", "Leo Tolstoy", "1225", "1867", "Fiction", true);
-  addBook("Dune", "Frank Herbert", "412", "1965", "Fiction", true);
-  addBook("East of Eden", "John Steinbeck", "704", "1952", "Fiction", true);
-  addBook("The Count of Monte Cristo", "Alexandre Dumas", "636", "1846", "Fiction", true);
-  addBook("Kafka on the Shore", "Haruki Murakami", "505", "2002", "Fiction", true);
-  addBook("Fathers and Sons", "Ivan Turgenev", "226", "1862", "Fiction", true);
-  addBook("The Brothers Karamazov", "Fyodor Dostoevsky", "824", "1880", "Fiction", true);
-  addBook("Treasure Island", "Robert Louis Stevenson", "292", "1883", "Fiction", true);
-  addBook("The Castle", "Franz Kafka", "416", "1926", "Fiction", true);
-  addBook("Crime and Punishment", "Fyodor Dostoevsky", "492", "1866", "Fiction", true);
-  addBook("Anna Karenina", "Leo Tolstoy", "864", "1878", "Fiction", true);
-  addBook("A Gentleman in Moscow", "Amor Towles", "462", "2016", "Fiction", true);
-  addBook("Master and Commander", "Patrick O'Brian", "412", "1969", "Fiction", true);
-  addBook("The Trial", "Franz Kafka", "178", "1925", "Fiction", true);
-  addBook("All the Light We Cannot See", "Anthony Doerr", "544", "2014", "Fiction", true);
-  addBook("Flashman", "George MacDonald Fraser", "256", "1969", "Fiction", true);
-  addBook("The Garden of Evening Mists", "Tan Twan Eng", "448", "2012", "Fiction", true);
+  // title, author, pages, year, category, read, image
+  addBook("The Wind-Up Bird Chronicle", "Haruki Murakami", "607", "1995", "Fiction", true, "photos/thewindupbirdchronicle.jpg");
+  addBook("War and Peace", "Leo Tolstoy", "1225", "1867", "Fiction", true, "photos/warandpeace.jpg");
+  addBook("Dune", "Frank Herbert", "412", "1965", "Fiction", true, "photos/dune.jpg");
+  addBook("East of Eden", "John Steinbeck", "704", "1952", "Fiction", true, "photos/east of eden.jpg");
+  addBook("The Count of Monte Cristo", "Alexandre Dumas", "636", "1846", "Fiction", true, "photos/thecountofmontecristo.jpg");
+  addBook("Kafka on the Shore", "Haruki Murakami", "505", "2002", "Fiction", true, "photos/kafkaontheshore.jpg");
+  addBook("Fathers and Sons", "Ivan Turgenev", "226", "1862", "Fiction", true, "photos/fathersandsons.jpg");
+  addBook("The Brothers Karamazov", "Fyodor Dostoevsky", "824", "1880", "Fiction", true, "photos/brotherskaramazov.jpg");
+  addBook("Treasure Island", "Robert Louis Stevenson", "292", "1883", "Fiction", true, "photos/treasureisland.jpg");
+  addBook("The Castle", "Franz Kafka", "416", "1926", "Fiction", true, "photos/thecastle.jpg");
+  addBook("Crime and Punishment", "Fyodor Dostoevsky", "492", "1866", "Fiction", true, "photos/crimeandpunshment.jpg");
+  addBook("Anna Karenina", "Leo Tolstoy", "864", "1878", "Fiction", true, "photos/annakarenina.jpg");
+  addBook("A Gentleman in Moscow", "Amor Towles", "462", "2016", "Fiction", true, "photos/agentlemaninmoscow.jpg");
+  addBook("Master and Commander", "Patrick O'Brian", "412", "1969", "Fiction", true, "photos/masterandcommander.jpg");
+  addBook("The Trial", "Franz Kafka", "178", "1925", "Fiction", true, "photos/thetrial.jpg");
+  addBook("All the Light We Cannot See", "Anthony Doerr", "544", "2014", "Fiction", true, "photos/all the light.jpg");
+  addBook("Flashman", "George MacDonald Fraser", "256", "1969", "Fiction", true, "photos/flashman.jpg");
+  addBook("The Garden of Evening Mists", "Tan Twan Eng", "448", "2012", "Fiction", true, "photos/thegardenofeveningmists.jpg");
   organizeBooks();
   myCabinets.forEach((thisCardCabinet) => thisCardCabinet.style.display = 'grid');
   fileCabinet.forEach((drawer) => drawer.style.transform = 'translateY(1rem) scale(1.05)');
