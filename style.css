@@ -19,6 +19,8 @@ body {
   margin:0;
 }
 
+/*------ Header ------*/
+
 header {
   background-color: #75ACFF;
   display: grid;
@@ -69,6 +71,8 @@ header > h1 {
   display: none;
 }
 
+/*------ Main ------*/
+
 main {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
@@ -80,67 +84,62 @@ main {
   padding-top: 1rem;
 }
 
-/*------ card ------*/
-
-
 .card-cabinet {
   position: relative;
-  min-width: 25rem;
-  margin: 2rem 1rem;
-  height: max-content;
-  padding: .25rem .25rem .5rem;
   display: grid;
   grid-auto-rows: 2rem;
+  min-width: 25rem;
+  height: max-content;
+  margin: 2rem 1rem;
+  padding: .25rem .25rem .5rem;
 }
 
 .card-cabinet-displayed {
   display: grid;
-  width: clamp(26rem, 81%, 80rem);
-  height: max-content;
   grid-template-columns: repeat(auto-fit, 26rem);
-  align-items: center;
   row-gap: 1.75rem;
-  margin: 2rem 1rem;
+  align-items: center;
+  width: clamp(26rem, 81%, 80rem);
   height: fit-content;
-  padding: .25rem .25rem .5rem;
+  margin: 2rem 1rem;
+  padding: .25rem .25rem 1.25rem;
 }
 
 .card {
+  position: absolute;
+  top: 0;
   display: flex;
   flex-wrap: wrap;
   background-color: #ecd6b6;
+  font-family: 'secret_typewriterregular';
+  outline: solid 8px #a97e3e;
+  width: clamp(15rem, 100%, 25rem);
   height: max-content;
   min-height: 3.5rem;
-  width: clamp(15rem, 100%, 25rem);
-  font-family: 'secret_typewriterregular';
-  position: absolute;
-  top: 0;
-  left: .5rem;
   margin-top: .25rem;
-  outline: solid 8px #a97e3e;
 }
 
 .stacked-cabinet {
+  position: fixed;
+  left: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: .1rem;
-  padding: .5rem 0;
-  background-color: #5d4014;
-  margin:  0 .75rem;
-  width: clamp(4rem, 18%, 9rem);
-  position: fixed;
-  left: 0;
-  border-bottom: solid 1rem #005AFF;
   font-size: clamp(.35rem, 1.4vw, .725rem);
+  border-bottom: solid 1rem #005AFF; 
+  background-color: #5d4014;
+  width: clamp(4rem, 18%, 9rem);
   height: fit-content;
+  padding: .5rem 0;
+  margin: 0 .75rem;
 }
 
 .drawer {
+  position: relative;
   background-color: #966F33;
   width: clamp(4rem, 95%, 9rem);
   height: min-content;
-  position: relative;
 }
 
 menu {
@@ -164,28 +163,22 @@ menu li:first-child {
   margin-top: clamp(.8rem, 3.5vw, 1.775rem);
 }
 
-.svg-text {
-  max-width: 4rem;
-  max-height: 1rem;
-}
-
 article[data-bookref='00'], .card-template, svg[id='0'] {
   display: none;
 }
 
-
 .card .tab {
   position: absolute;
   top: -1.9rem;
-  height: 1.5rem;
-  width: 4rem;
-  padding: .5rem 1rem 0;
-  margin: 0;
   background-color: #ecd6b6;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   cursor: pointer;
   outline: 1.5px solid #a97e3e;
+  height: 1.5rem;
+  width: 4rem;
+  margin: 0;
+  padding: .5rem 1rem 0;
 }
 
 .red-line {
@@ -201,8 +194,6 @@ article[data-bookref='00'], .card-template, svg[id='0'] {
   height: 70%;
   width: 100%;
   margin-top: 3.5rem;
-  display: flex;
-  flex-direction: column;
   z-index: 0;
 }
 
@@ -214,8 +205,7 @@ article[data-bookref='00'], .card-template, svg[id='0'] {
 
 #left {
   width: 5rem;
-  padding-top: 2.6rem;
-  padding-left: .75rem;
+  padding: 2.6rem 0 0 .75rem;
   border-right: 1px solid rgba(255, 0, 0, .4);
   z-index: 1;
   line-height: 1.15rem;
@@ -248,22 +238,20 @@ article[data-bookref='00'], .card-template, svg[id='0'] {
 }
 
 #left input:checked + .read-background::after {
-  display: block;
+  display: unset;
 }
-
 
 #left p {
   margin: 0;
 }
 
 #middle {
-  padding-top: 2.25rem;
-  padding-left: 1rem;
-  margin-left: clamp(1px, 4%, 1.5rem);
   border-left: 1px solid rgba(255, 0, 0, .4);
   line-height: 1.5rem;
   z-index: 1;
   width: clamp(8.75rem, 60%, 9.25rem);
+  margin-left: clamp(1px, 4%, 1.5rem);
+  padding: 2.25rem 0 0 1rem;
 }
 
 #middle > * {
@@ -312,28 +300,29 @@ article[data-bookref='00'], .card-template, svg[id='0'] {
   color: red;
 }
 
+/*--- Add book form ---*/
 
 .book-form {
-  background-color: orange;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem 0 0;
-  gap: .75rem;
-  width: 16rem;
-  height: 25rem;
   position: absolute;
-  margin: 0 auto;
   top: 10%;
   left: 0;
   right: 0;
-  z-index: 100;
+  display: none;
+  background-color: orange;
   border-radius: 15px;
+  flex-direction: column;
+  align-items: center;
+  gap: .75rem;
+  width: 16rem;
+  height: 25rem;
+  margin: 0 auto;
+  padding: 2rem 0 0;
+  z-index: 3;
 }
 
 .book-form h2 {
-  margin: 0;
   text-align: center;
+  margin: 0;
 }
 
 .exit-form {
@@ -341,9 +330,9 @@ article[data-bookref='00'], .card-template, svg[id='0'] {
   right: .5rem;
   top: .5rem;
   font-size: .75rem;
+  text-align: center;
   height: 1rem;
   width: 1rem;
-  text-align: center;
   padding: 0;
 }
 
@@ -355,9 +344,9 @@ article[data-bookref='00'], .card-template, svg[id='0'] {
 
 input[type='checkbox'] {
   appearance: none;
+  border: 2px solid #ca9d59;
   width: 1rem;
   height: 1rem;
-  border: 2px solid #ca9d59;
   margin: 0;
 }
 
@@ -370,9 +359,9 @@ input[type='checkbox']:checked {
 }
 
 #titleDiv input, #authorDiv input, #yearDiv input, #pagesDiv input {
-  height: 2rem;
-  width: 12rem;
   border-radius: 10px;
+  width: 12rem;
+  height: 2rem;
   padding: .75rem .5rem;
 }
 
@@ -384,9 +373,9 @@ input[type='checkbox']:checked {
   position: absolute;
   left: 0;
   top: .45rem;
-  padding-left: .65rem;
   color: grey;
   margin: 0 auto;
+  padding-left: .65rem;
 }
 
 #catDiv {
@@ -394,11 +383,11 @@ input[type='checkbox']:checked {
 }
 
 #upload {
-  width: 6rem;
   position: relative;
   text-align: center;
   outline: 2px solid white;
   border-radius: 10px;
+  width: 6rem;
   padding: .25rem .5rem;
 }
 
@@ -412,14 +401,14 @@ input[type='checkbox']:checked {
 
 #upload label {
   position: absolute;
-  width: 100%;
   left: 0;
   top: .4rem;
+  width: 100%;
 }
 
 .btn {
-  width: 9rem;
   border-radius: 5px;
+  width: 9rem;
   height: 1.75rem;
 }
 
@@ -430,7 +419,6 @@ footer {
   bottom: 0;
   background-color: transparent;
 }
-
 
 @media screen and (max-width: 600px) {
   
