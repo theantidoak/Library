@@ -35,7 +35,6 @@ let cardCabinet = document.querySelector('.card-cabinet');
 let myCabinets = [cardCabinet];
 let newDrawer = document.querySelector('.drawer').cloneNode(true);
 newDrawer.id = svgDrawerCount;
-stackedCabinet.appendChild(newDrawer);
 newDrawer.style.transform = 'translateY(1rem) scale(1.05)';
 newDrawer.addEventListener('click', openDrawer);
 let fileCabinet = [newDrawer];
@@ -152,7 +151,25 @@ class Book {
       nextCard.dataset.bookref = book.reference;
       nextCard.style.zIndex = myLibrary.indexOf(book) + 1;
 
-      if (cardCabinet.children.length % 6 == 0 && cardCabinet.children.length != 0) {
+
+      nextCard.children[0].style.left = (cardCabinet.children.length * 4.2) + 'rem';
+      cardCabinet.appendChild(nextCard);
+      
+      
+      if (cardCabinet.children.length == 1) {
+        stackedCabinet.appendChild(newDrawer);
+        main.appendChild(cardCabinet);
+        myCabinets.push(cardCabinet);
+        /*------ Add label with first initials to cabinet drawer------*/
+        let firstInitials = cardCabinet.children[0].children.middle.children.author.textContent.split(' ');
+        let firstInitialsText = document.createTextNode(firstInitials.filter((bok) => {
+          if (firstInitials.indexOf(bok) == 0 || firstInitials.indexOf(bok) == firstInitials.length - 1) {
+              return bok;}}).map((it) => it[0]) + ' - ');
+        menuContent = document.createElement('li');
+        menuContent.appendChild(firstInitialsText); 
+        menu.appendChild(menuContent);
+        labels.push(menuContent);
+      } else if (cardCabinet.children.length % 6 == 0 && cardCabinet.children.length != 0) {
         drawerCount += 1;
         svgDrawerCount += 1;
         /*------ Add ending intials to cabinet drawer ------*/
@@ -165,39 +182,22 @@ class Book {
         /*------ Create new card cabinet ------*/
         cardCabinet = document.createElement('div');
         cardCabinet.classList.add('card-cabinet');
-        main.appendChild(cardCabinet);
-        myCabinets.push(cardCabinet);
         
         /*------ Create new cabinet drawer ------*/
         newDrawer = document.querySelector('.drawer').cloneNode(true);
         newDrawer.id = svgDrawerCount;
         newDrawer.style.transform = 'translateY(1rem) scale(1.05)';
-        stackedCabinet.appendChild(newDrawer);
+        newDrawer.style.zIndex = '2';
         fileCabinet.push(newDrawer);
         newDrawer.addEventListener('click', openDrawer);
-        
-        fileCabinet[0].parentElement.style.position = fileCabinet.length > 3 ? 
-          'absolute': 'fixed';
       }
 
-      nextCard.children[0].style.left = (cardCabinet.children.length * 4.2) + 'rem';
-      cardCabinet.appendChild(nextCard);
-
-      if (cardCabinet.children.length == 1) {
-        /*------ Add label with first initials to cabinet drawer------*/
-        let firstInitials = cardCabinet.children[0].children.middle.children.author.textContent.split(' ');
-        let firstInitialsText = document.createTextNode(firstInitials.filter((bok) => {
-          if (firstInitials.indexOf(bok) == 0 || firstInitials.indexOf(bok) == firstInitials.length - 1) {
-              return bok;}}).map((it) => it[0]) + ' - ');
-        menuContent = document.createElement('li');
-        menuContent.appendChild(firstInitialsText); 
-        menu.appendChild(menuContent);
-        labels.push(menuContent);
-      } 
       if (gridShown) {
         nextCard.style.position = 'relative';
         myCabinets.forEach((thisCardCabinet) => thisCardCabinet.classList.replace('card-cabinet', 'card-cabinet-displayed'));
       }
+      stackedCabinet.style.position = window.innerHeight - stackedCabinet.offsetHeight < '122' ? 
+          'absolute': 'fixed';
       cardCabinet.dataset.drawer = drawerCount;
       let bookref = nextCard.dataset.bookref;
       allCards.push(nextCard);

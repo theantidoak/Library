@@ -25,7 +25,7 @@ body {
 }
 
 header {
-  min-height: 8rem;
+  height: fit-content;
   width: 100%;
   background-color: #75ACFF;
   display: grid;
@@ -37,20 +37,28 @@ header > h1 {
   color: white;
   align-self: center;
   width: 100%;
-  margin: 1rem auto 0;
+  margin: .5rem auto 0;
   text-align: center;
   grid-column: 1/5;
+  font-size: 2.5rem;
 }
 
-.display-form {
-  grid-column: 1/2;
-  align-self: center;
-  justify-self: center;
+.display-form::after {
+  content: 'Add a book';
+}
+.organize::after {
+  content: 'Sort';
+}
+.show-cards::after {
+  content: 'Change layout';
+}
+.populate::after {
+  content: 'Tommy\'s library';
 }
 
 .display-form > svg, .organize > svg, .show-cards > svg, .populate > svg {
-  width: 3rem;
-  height: 3rem;
+  width: 2rem;
+  height: 2rem;
 }
 
 .display-form, .organize, .show-cards, .populate {
@@ -62,11 +70,9 @@ header > h1 {
   display: flex;
   align-items: center;
   gap: .25rem;
-}
-
-.organize, .show-cards, .populate {
   align-self: center;
   justify-self: center;
+  /* padding-bottom: .5rem; */
 }
 
 .grid-svg {
@@ -82,7 +88,7 @@ main {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
   justify-items: center;
-  grid-auto-rows: max-content;
+  grid-auto-rows: minmax(max-content, 15rem);
   background-color: #005AFF;
   padding-left: 9rem;
   padding-right: 1rem;
@@ -103,7 +109,7 @@ main {
 .card-cabinet-displayed {
   display: grid;
   /* width: fit-content; */
-  width: clamp(26rem, 75%, 80rem);
+  width: clamp(26rem, 81%, 80rem);
   height: max-content;
   grid-template-columns: repeat(auto-fit, 26rem);
   align-items: center;
@@ -437,42 +443,40 @@ footer {
   bottom: 0;
   background-color: transparent;
 }
-
 .mobile-instructions {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  top: 9.75rem;
-  background-color: #75ACFF;
-  border-radius: 10px;
-  width: fit-content;
-  padding: .5rem;
+  display: none;
 }
-.mobile-instructions > * {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-.mobile-instructions svg {
-  height: 1.5rem;
-  width: 1.5rem;
-}
-.mobile-instructions p {
-  padding: 0;
-  margin: 0;
-}
+
 
 @media screen and (max-width: 600px) {
-  .mobile-instructions {
+  /* .mobile-instructions {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: absolute;
     left: 0;
     right: 0;
     margin: 0 auto;
     top: 9rem;
+    background-color: #75ACFF;
+    border-radius: 10px;
+    width: fit-content;
+    padding: .5rem;
   }
+  .mobile-instructions > * {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .mobile-instructions svg {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+  .mobile-instructions p {
+    padding: 0;
+    margin: 0;
+  } */
+  
   #right img {
     display: none;
   }
@@ -519,10 +523,13 @@ footer {
 
 
 
-  .display-form {
-    justify-self: center;
+  .display-form, .populate, .show-cards, .organize {
     margin: 0;
+    font-size: .6rem;
+    gap: .1rem;
+    width: min-content;
   }
+
   .display-form > svg, .populate > svg, .show-cards > svg, .organize > svg {
     width: 2rem;
     height: 2rem;

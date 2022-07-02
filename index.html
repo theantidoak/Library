@@ -12,6 +12,38 @@
   <header>
     <h1>The Library</h1>
     <button class="display-form">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <style>
+          .plus {
+            transform: scale(1.8) translate(-11.5px, 0px);
+          }
+        </style>
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+        <path d="M 18 3 L 18 8 Q 18.5 8.5 19 8 L 19 3 Q 18.5 2.5 18 3 M 16 6 L 21 6 Q 21.5 5.5 21 5 L 16 5 Q 15.5 5.5 16 6" class='plus' stroke="none" stroke-width="0.2" fill="black"></path>
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+      </svg>
+    </button>
+    <button class="populate">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="3.9 3.9 40.2 40.2">
+        <path d="M17.15 27H28.4v-3H17.15Zm0-4.5H36.9v-3H17.15Zm0-4.5H36.9v-3H17.15ZM13 38q-1.2 0-2.1-.9-.9-.9-.9-2.1V7q0-1.2.9-2.1.9-.9 2.1-.9h28q1.2 0 2.1.9.9.9.9 2.1v28q0 1.2-.9 2.1-.9.9-2.1.9Zm0-3h28V7H13v28Zm-6 9q-1.2 0-2.1-.9Q4 42.2 4 41V10h3v31h31v3Zm6-37v28V7Z" stroke="black" stroke-width=".1" fill="black"/>
+      </svg>
+    </button>
+    <button class="organize">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="3.9 3.9 38.2 40.2">
+        <path d="m4 34 8.1-20h3.15l8.05 20h-3.15l-1.9-4.95h-9.2L7.15 34Zm6.05-7.55h7.2l-3.5-9.25h-.2ZM27.4 34v-3.1l11.65-14.3H28.3V14h13.6v3.15L30.35 31.4H42V34ZM19.2 8.8 24 4l4.8 4.8ZM24 44l-4.8-4.8h9.6Z" stroke="black" stroke-width=".1" fill="black"/>
+      </svg>
+    </button>
+    <button class="show-cards">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="5.9 5.9 36.2 36.2" class="grid-svg">
+        <path d="M6 22.5V6h16.5v16.5ZM6 42V25.5h16.5V42Zm19.5-19.5V6H42v16.5Zm0 19.5V25.5H42V42ZM9 19.5h10.5V9H9Zm19.5 0H39V9H28.5Zm0 19.5H39V28.5H28.5ZM9 39h10.5V28.5H9Zm19.5-19.5Zm0 9Zm-9 0Zm0-9Z" stroke="black" stroke-width=".1" fill="black"/>
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="3.9 7.9 40.2 32.2" class="tabs-svg">
+        <path d="M7 40q-1.2 0-2.1-.9Q4 38.2 4 37V11q0-1.2.9-2.1Q5.8 8 7 8h34q1.2 0 2.1.9.9.9.9 2.1v26q0 1.2-.9 2.1-.9.9-2.1.9Zm19.2-20.35V11H7v26h34V19.65ZM7 37V11v26Z" stroke="black" stroke-width=".1" fill="black"/>
+      </svg>
+
+    </button>
+    <aside class="mobile-instructions">
+      <div>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <style>
             .plus {
@@ -22,69 +54,37 @@
           <path d="M 18 3 L 18 8 Q 18.5 8.5 19 8 L 19 3 Q 18.5 2.5 18 3 M 16 6 L 21 6 Q 21.5 5.5 21 5 L 16 5 Q 15.5 5.5 16 6" class='plus' stroke="none" stroke-width="0.2" fill="black"></path>
           <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
         </svg>
-      </button>
-      <button class="populate">
+        <p>Add a Book</p>
+      </div>
+      <div>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="3.9 3.9 40.2 40.2">
           <path d="M17.15 27H28.4v-3H17.15Zm0-4.5H36.9v-3H17.15Zm0-4.5H36.9v-3H17.15ZM13 38q-1.2 0-2.1-.9-.9-.9-.9-2.1V7q0-1.2.9-2.1.9-.9 2.1-.9h28q1.2 0 2.1.9.9.9.9 2.1v28q0 1.2-.9 2.1-.9.9-2.1.9Zm0-3h28V7H13v28Zm-6 9q-1.2 0-2.1-.9Q4 42.2 4 41V10h3v31h31v3Zm6-37v28V7Z" stroke="black" stroke-width=".1" fill="black"/>
         </svg>
-      </button>
-      <button class="organize">
+        <p>Add Library</p>
+      </div>
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="15.9 6.9 10.2 7.2" class="drawer">
+          <path d="M 17 8 L 17 13 L 25 13 L 25 8 L 17 8 M 16 7 L 26 7 L 26 14 L 16 14 L 16 7 M 19.5 11 C 21 11.5 21 11.5 22.5 11" stroke="#55380d" stroke-width="0.1" fill="#5C4033"/>
+          <path d="M 19 9 L 23 9 L 23 10 L 19 10 L 19 9" stroke="#55380d" stroke-width="0.1" fill="white"/>
+        </svg>
+        <p>Open/Close File</p>
+      </div>
+      <div>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="3.9 3.9 38.2 40.2">
           <path d="m4 34 8.1-20h3.15l8.05 20h-3.15l-1.9-4.95h-9.2L7.15 34Zm6.05-7.55h7.2l-3.5-9.25h-.2ZM27.4 34v-3.1l11.65-14.3H28.3V14h13.6v3.15L30.35 31.4H42V34ZM19.2 8.8 24 4l4.8 4.8ZM24 44l-4.8-4.8h9.6Z" stroke="black" stroke-width=".1" fill="black"/>
         </svg>
-      </button>
-      <button class="show-cards">
+        <p>Sort Alphabetically</p>
+      </div>
+      <div>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="5.9 5.9 36.2 36.2" class="grid-svg">
           <path d="M6 22.5V6h16.5v16.5ZM6 42V25.5h16.5V42Zm19.5-19.5V6H42v16.5Zm0 19.5V25.5H42V42ZM9 19.5h10.5V9H9Zm19.5 0H39V9H28.5Zm0 19.5H39V28.5H28.5ZM9 39h10.5V28.5H9Zm19.5-19.5Zm0 9Zm-9 0Zm0-9Z" stroke="black" stroke-width=".1" fill="black"/>
         </svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="3.9 7.9 40.2 32.2" class="tabs-svg">
           <path d="M7 40q-1.2 0-2.1-.9Q4 38.2 4 37V11q0-1.2.9-2.1Q5.8 8 7 8h34q1.2 0 2.1.9.9.9.9 2.1v26q0 1.2-.9 2.1-.9.9-2.1.9Zm19.2-20.35V11H7v26h34V19.65ZM7 37V11v26Z" stroke="black" stroke-width=".1" fill="black"/>
         </svg>
-
-      </button>
-      <aside class="mobile-instructions">
-        <div>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <style>
-              .plus {
-                transform: scale(1.8) translate(-11.5px, 0px);
-              }
-            </style>
-            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-            <path d="M 18 3 L 18 8 Q 18.5 8.5 19 8 L 19 3 Q 18.5 2.5 18 3 M 16 6 L 21 6 Q 21.5 5.5 21 5 L 16 5 Q 15.5 5.5 16 6" class='plus' stroke="none" stroke-width="0.2" fill="black"></path>
-            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-          </svg>
-          <p>Add a Book</p>
-        </div>
-        <div>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="3.9 3.9 40.2 40.2">
-            <path d="M17.15 27H28.4v-3H17.15Zm0-4.5H36.9v-3H17.15Zm0-4.5H36.9v-3H17.15ZM13 38q-1.2 0-2.1-.9-.9-.9-.9-2.1V7q0-1.2.9-2.1.9-.9 2.1-.9h28q1.2 0 2.1.9.9.9.9 2.1v28q0 1.2-.9 2.1-.9.9-2.1.9Zm0-3h28V7H13v28Zm-6 9q-1.2 0-2.1-.9Q4 42.2 4 41V10h3v31h31v3Zm6-37v28V7Z" stroke="black" stroke-width=".1" fill="black"/>
-          </svg>
-          <p>Add Library</p>
-        </div>
-        <div>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="15.9 6.9 10.2 7.2" class="drawer">
-            <path d="M 17 8 L 17 13 L 25 13 L 25 8 L 17 8 M 16 7 L 26 7 L 26 14 L 16 14 L 16 7 M 19.5 11 C 21 11.5 21 11.5 22.5 11" stroke="#55380d" stroke-width="0.1" fill="#5C4033"/>
-            <path d="M 19 9 L 23 9 L 23 10 L 19 10 L 19 9" stroke="#55380d" stroke-width="0.1" fill="white"/>
-          </svg>
-          <p>Open/Close File</p>
-        </div>
-        <div>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="3.9 3.9 38.2 40.2">
-            <path d="m4 34 8.1-20h3.15l8.05 20h-3.15l-1.9-4.95h-9.2L7.15 34Zm6.05-7.55h7.2l-3.5-9.25h-.2ZM27.4 34v-3.1l11.65-14.3H28.3V14h13.6v3.15L30.35 31.4H42V34ZM19.2 8.8 24 4l4.8 4.8ZM24 44l-4.8-4.8h9.6Z" stroke="black" stroke-width=".1" fill="black"/>
-          </svg>
-          <p>Sort Alphabetically</p>
-        </div>
-        <div>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="5.9 5.9 36.2 36.2" class="grid-svg">
-            <path d="M6 22.5V6h16.5v16.5ZM6 42V25.5h16.5V42Zm19.5-19.5V6H42v16.5Zm0 19.5V25.5H42V42ZM9 19.5h10.5V9H9Zm19.5 0H39V9H28.5Zm0 19.5H39V28.5H28.5ZM9 39h10.5V28.5H9Zm19.5-19.5Zm0 9Zm-9 0Zm0-9Z" stroke="black" stroke-width=".1" fill="black"/>
-          </svg>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="3.9 7.9 40.2 32.2" class="tabs-svg">
-            <path d="M7 40q-1.2 0-2.1-.9Q4 38.2 4 37V11q0-1.2.9-2.1Q5.8 8 7 8h34q1.2 0 2.1.9.9.9.9 2.1v26q0 1.2-.9 2.1-.9.9-2.1.9Zm19.2-20.35V11H7v26h34V19.65ZM7 37V11v26Z" stroke="black" stroke-width=".1" fill="black"/>
-          </svg>
-          <p>Change the Format</p>
-        </div>
-      </aside>
+        <p>Change the Format</p>
+      </div>
+    </aside>
   </header>
   <main>
     <form action="" class="book-form" autocomplete="off">
@@ -121,7 +121,7 @@
         </div>
       </div>
       <div id="readDiv">
-        <input type="checkbox" id="readInput">
+        <input type="checkbox" id="readInput" checked>
         <label for="read-input">Have you read it?</label>
       </div>
       <div id="btnDiv">
