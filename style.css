@@ -57,13 +57,13 @@ header > h1 {
 }
 
 .display-form > svg, .organize > svg, .show-cards > svg, .populate > svg {
-  width: 2rem;
-  height: 2rem;
+  width: max(2rem, 2rem);
+  height: max(2rem, 2rem);
 }
 
 .display-form, .organize, .show-cards, .populate {
   height: fit-content;
-  width: auto;
+  width: max(auto, min-content);
   background-color: transparent;
   border: none;
   padding: 0;
@@ -72,6 +72,8 @@ header > h1 {
   gap: .25rem;
   align-self: center;
   justify-self: center;
+  font-size: clamp(.6rem, 2.5vw, .8rem);
+  gap: .1rem;
 }
 
 .grid-svg {
@@ -89,7 +91,7 @@ main {
   justify-items: center;
   grid-auto-rows: minmax(max-content, 15rem);
   background-color: #005AFF;
-  padding-left: 9rem;
+  padding-left: clamp(1rem, 100vw - 22rem, 9rem);
   padding-right: 1rem;
 }
 
@@ -103,6 +105,7 @@ main {
   height: max-content;
   padding: .25rem .5rem .5rem;
   display: grid;
+  grid-auto-rows: 2rem;
 }
 
 .card-cabinet-displayed {
@@ -235,7 +238,7 @@ article[data-bookref='00'], .card-template, svg[id='0'] {
 
 #left input {
   position: absolute;
-  top: 6.25rem;
+  top: max(5.25, 6.25rem);
   left: .7rem;
 }
 
@@ -270,12 +273,12 @@ article[data-bookref='00'], .card-template, svg[id='0'] {
 
 #middle {
   padding-top: 2.25rem;
-  padding-left: .25rem;
+  padding-left: 1rem;
   margin-left: clamp(1px, 4%, 1.5rem);
   border-left: 1px solid rgba(255, 0, 0, .4);
   line-height: 1.5rem;
   z-index: 1;
-  width: 10rem;
+  width: clamp(8.75rem, 60%, 9.25rem);
 }
 
 #middle > * {
@@ -292,9 +295,9 @@ article[data-bookref='00'], .card-template, svg[id='0'] {
 }
 
 #right {
-  padding-right: .75rem;
+  padding-right: max(.75rem, 0);
+  margin-left: max(.75rem, 0);
   padding-top: 1.5rem;
-  margin-left: .75rem;
   z-index: 1;
 }
 
@@ -479,32 +482,6 @@ footer {
   #right img {
     display: none;
   }
-  main {
-    padding-left: .5rem;
-    justify-items: center;
-  }
-  .card-cabinet, .card-cabinet-displayed {
-    width: 16rem;
-    min-width: 9rem;
-    margin-top: .25rem;
-    min-height: 21rem;
-    margin-right: 2rem;
-    margin-left: 1rem;
-    padding-left: 0;
-  }
-  .card-cabinet {
-    grid-auto-rows: 2rem;
-    margin-bottom: 2rem;
-  }
-  .card {
-    width: 15rem;
-    position: relative;
-    height: 12rem;
-    overflow: auto;
-  }
-  .stacked-cabinet {
-    margin: .5rem;
-  }
   .card .tab {
     display: none;
   }
@@ -512,31 +489,15 @@ footer {
     position: absolute;
     top: 5px;
   }
-
-  .display-form, .populate, .show-cards, .organize {
-    margin: 0;
-    font-size: .6rem;
-    gap: .1rem;
-    width: min-content;
+  .card-cabinet, .card-cabinet-displayed {
+    min-width: 9rem;
+    min-height: 21rem;
+    margin: .25rem 2rem 0 1rem;
   }
-
-  .display-form > svg, .populate > svg, .show-cards > svg, .organize > svg {
-    width: 2rem;
-    height: 2rem;
-  }
-
-  #left input {
-    top: 5.25rem;
-  }
-
-  .blue-lines div:last-child {
-    display: none;
-  }
-  #middle {
-    width: 8.75rem;
-  }
-  #right {
-    margin: 0;
-    padding: 0;
+  .card {
+    position: relative;
+    width: 15rem;
+    height: 12rem;
+    overflow: auto;
   }
 }
