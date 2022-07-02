@@ -72,7 +72,6 @@ header > h1 {
   gap: .25rem;
   align-self: center;
   justify-self: center;
-  /* padding-bottom: .5rem; */
 }
 
 .grid-svg {
@@ -108,7 +107,6 @@ main {
 
 .card-cabinet-displayed {
   display: grid;
-  /* width: fit-content; */
   width: clamp(26rem, 81%, 80rem);
   height: max-content;
   grid-template-columns: repeat(auto-fit, 26rem);
@@ -142,39 +140,40 @@ main {
   padding: .5rem 0;
   background-color: #5d4014;
   margin:  0 1rem;
-  width: fit-content;
-  max-width: 9rem;
+  width: clamp(4rem, 18%, 9rem);
   position: fixed;
   left: 0;
   border-bottom: solid 1rem #005AFF;
+  font-size: clamp(.35rem, 1.4vw, .725rem);
+  height: fit-content;
 }
 
 .drawer {
   background-color: #966F33;
-  width: 8rem;
-  height: auto;
+  width: clamp(4rem, 95%, 9rem);
+  height: min-content;
   position: relative;
 }
 
 menu {
   list-style: none;
-  width: 100%;
   height: 1px;
   margin: 0;
   padding: 0;
   position: absolute;
   z-index: 3;
-  font-size: 12px;
 }
 
 menu li {
   width: fit-content;
-  margin: 4.869rem auto 0;
+  margin: 0 auto;
+  margin-top: clamp(2.525rem, 10.65vw + .85px, 5.3rem);
   padding: 0;
 }
 
 menu li:first-child {
-  margin: 1.6rem auto 0;
+  margin: 0 auto;
+  margin-top: clamp(.8rem, 3.5vw, 1.775rem);
 }
 
 .svg-text {
@@ -504,14 +503,7 @@ footer {
     overflow: auto;
   }
   .stacked-cabinet {
-    width: 4rem;
     margin: .5rem;
-  }
-  .drawer {
-    width: 4rem;
-  }
-  menu {
-    display: none;
   }
   .card .tab {
     display: none;
@@ -520,8 +512,6 @@ footer {
     position: absolute;
     top: 5px;
   }
-
-
 
   .display-form, .populate, .show-cards, .organize {
     margin: 0;
