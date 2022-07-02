@@ -4,7 +4,6 @@
        url('fonts/veteran_typewriter-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
-
 }
 
 * {
@@ -38,6 +37,10 @@ header > h1 {
 .display-form > svg, .organize > svg, .show-cards > svg, .populate > svg {
   width: max(2rem, 2rem);
   height: max(2rem, 2rem);
+}
+
+.display-form:hover > *, .organize:hover > *, .show-cards:hover > *, .populate:hover > * {
+ transform: scale(1.1);
 }
 
 .display-form, .organize, .show-cards, .populate {
@@ -131,6 +134,7 @@ main {
   background-color: #5d4014;
   width: clamp(4rem, 18%, 9rem);
   height: fit-content;
+  min-height: 8rem;
   padding: .5rem 0;
   margin: 0 .75rem;
 }
@@ -140,6 +144,10 @@ main {
   background-color: #966F33;
   width: clamp(4rem, 95%, 9rem);
   height: min-content;
+}
+
+.drawer:hover {
+  background-color: #ecd6b6;
 }
 
 menu {
@@ -218,11 +226,7 @@ article[data-bookref='00'], .card-template, svg[id='0'] {
 }
 
 #left input:hover {
-  background-color: #ca9d59;
-}
-
-#left input:checked:hover {
-  background-color: transparent;
+  border-color: #005AFF;
 }
 
 .read-background::after {
