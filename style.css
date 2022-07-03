@@ -168,13 +168,13 @@ menu {
 menu li {
   width: fit-content;
   margin: 0 auto;
-  margin-top: clamp(2.525rem, 10.65vw + .85px, 5.3rem);
+  margin-top: clamp(2.5rem, 10.65vw + .85px, 5.25rem);
   padding: 0;
 }
 
 menu li:first-child {
   margin: 0 auto;
-  margin-top: clamp(.8rem, 3.5vw, 1.775rem);
+  margin-top: clamp(.85rem, 3.4vw, 1.775rem);
 }
 
 article[data-bookref='00'], .card-template, svg[id='0'] {
