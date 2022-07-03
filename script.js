@@ -291,13 +291,13 @@ function addBook(title, author, pages, year, category, read, image) {
     }
     newBook.author = thisAuthor;
 
-  if (myLibrary.some((duplicate) => {
-    if (duplicate.title == newBook.title && 
-    duplicate.author == newBook.author &&
-    duplicate.year == newBook.year &&
-    duplicate.pages == newBook.pages)
-    return true;
-  })) return;
+  // if (myLibrary.some((duplicate) => {
+  //   if (duplicate.title == newBook.title && 
+  //   duplicate.author == newBook.author &&
+  //   duplicate.year == newBook.year &&
+  //   duplicate.pages == newBook.pages)
+  //   return true;
+  // })) return;
   myLibrary.push(newBook);
   newBook.loopThroughLibrary();
 }
