@@ -153,29 +153,29 @@ main {
   position: relative;
   background-color: var(--open-drawer-color);
   width: clamp(4rem, 95%, 9rem);
-  height: min-content;
+  height: auto;
 }
 
-menu {
+/* .menu {
   list-style: none;
-  height: 0;
   margin: 0;
   padding: 0;
-  position: absolute;
+  position: relative;
   z-index: 3;
 }
 
-menu li {
+.menu p {
   width: fit-content;
-  margin: 0 auto;
-  margin-top: clamp(2.5rem, 10.65vw + .85px, 5.195rem);
+  display: block;
   padding: 0;
+  margin: 0 auto;
+  position: absolute;
 }
 
 menu li:first-child {
   margin: 0 auto;
   margin-top: clamp(.85rem, 3.4vw, 1.775rem);
-}
+} */
 
 article[data-bookref='00'], .card-template, svg[id='0'] {
   display: none;
