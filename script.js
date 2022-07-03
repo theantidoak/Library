@@ -206,6 +206,7 @@ class Book {
       book.resetForm();
     })
     moveLabelWithDrawer();
+    centerCards();
   } 
 }
 
@@ -245,6 +246,7 @@ function openDrawer() {
     })
   }
   moveLabelWithDrawer();
+  centerCards();
 }
 
 
@@ -355,6 +357,7 @@ function showCards() {
   if (!gridShown) {
     gridSVG.style.display = 'block';
     tabsSVG.style.display = 'none';
+    main.style.paddingLeft = 'clamp(1rem, 100vw - 21rem, 10rem)';
     myCabinets.forEach((thisCardCabinet) => {
       thisCardCabinet.classList.replace('card-cabinet', 'card-cabinet-displayed');
       if (window.innerWidth < 600) return;
@@ -372,30 +375,38 @@ function showCards() {
         child.style.position = 'absolute';
       })
     })
+    centerCards();
   }
   gridShown = !gridShown;
+}
+
+function centerCards() {
+  let openLabels = labels.filter((label) => label.style.transform == 
+    'translateY(1rem) scale(1.05)').length;
+  main.style.paddingLeft = openLabels == 1 ? '1.5rem' : 
+    'clamp(1rem, 100vw - 21rem, 10rem)';
 }
 
 /*------ Use some of my favorite books to populate the library ------*/
 function populateLibrary() {
   // title, author, pages, year, category, read, image
-  addBook("The Wind-Up Bird Chronicle", "Haruki Murakami", "607", "1995", "Fiction", true, "photos/thewindupbirdchronicle.jpg");
-  addBook("War and Peace", "Leo Tolstoy", "1225", "1867", "Fiction", true, "photos/warandpeace.jpg");
-  addBook("Dune", "Frank Herbert", "412", "1965", "Fiction", true, "photos/dune.jpg");
+  addBook("The Wind-Up Bird Chronicle", "Haruki Murakami", "607", "1995", "Fiction", false, "photos/thewindupbirdchronicle.jpg");
+  addBook("War and Peace", "Leo Tolstoy", "1225", "1867", "Fiction", false, "photos/warandpeace.jpg");
+  addBook("Dune", "Frank Herbert", "412", "1965", "Fiction", false, "photos/dune.jpg");
+  addBook("The Count of Monte Cristo", "Alexandre Dumas", "636", "1846", "Fiction", false, "photos/thecountofmontecristo.jpg");
+  addBook("Kafka on the Shore", "Haruki Murakami", "505", "2002", "Fiction", false, "photos/kafkaontheshore.jpg");
   addBook("East of Eden", "John Steinbeck", "704", "1952", "Fiction", true, "photos/east of eden.jpg");
-  addBook("The Count of Monte Cristo", "Alexandre Dumas", "636", "1846", "Fiction", true, "photos/thecountofmontecristo.jpg");
-  addBook("Kafka on the Shore", "Haruki Murakami", "505", "2002", "Fiction", true, "photos/kafkaontheshore.jpg");
-  addBook("Fathers and Sons", "Ivan Turgenev", "226", "1862", "Fiction", true, "photos/fathersandsons.jpg");
-  addBook("The Brothers Karamazov", "Fyodor Dostoevsky", "824", "1880", "Fiction", true, "photos/brotherskaramazov.jpg");
-  addBook("Treasure Island", "Robert Louis Stevenson", "292", "1883", "Fiction", true, "photos/treasureisland.jpg");
-  addBook("The Castle", "Franz Kafka", "416", "1926", "Fiction", true, "photos/thecastle.jpg");
-  addBook("Crime and Punishment", "Fyodor Dostoevsky", "492", "1866", "Fiction", true, "photos/crimeandpunshment.jpg");
-  addBook("Anna Karenina", "Leo Tolstoy", "864", "1878", "Fiction", true, "photos/annakarenina.jpg");
-  addBook("A Gentleman in Moscow", "Amor Towles", "462", "2016", "Fiction", true, "photos/agentlemaninmoscow.jpg");
-  addBook("Master and Commander", "Patrick O'Brian", "412", "1969", "Fiction", true, "photos/masterandcommander.jpg");
-  addBook("The Trial", "Franz Kafka", "178", "1925", "Fiction", true, "photos/thetrial.jpg");
-  addBook("All the Light We Cannot See", "Anthony Doerr", "544", "2014", "Fiction", true, "photos/all the light.jpg");
-  addBook("Flashman", "George MacDonald Fraser", "256", "1969", "Fiction", true, "photos/flashman.jpg");
+  addBook("Fathers and Sons", "Ivan Turgenev", "226", "1862", "Fiction", false, "photos/fathersandsons.jpg");
+  addBook("The Brothers Karamazov", "Fyodor Dostoevsky", "824", "1880", "Fiction", false, "photos/brotherskaramazov.jpg");
+  addBook("Treasure Island", "Robert Louis Stevenson", "292", "1883", "Fiction", false, "photos/treasureisland.jpg");
+  addBook("The Castle", "Franz Kafka", "416", "1926", "Fiction", false, "photos/thecastle.jpg");
+  addBook("Crime and Punishment", "Fyodor Dostoevsky", "492", "1866", "Fiction", false, "photos/crimeandpunshment.jpg");
+  addBook("A Gentleman in Moscow", "Amor Towles", "462", "2016", "Fiction", false, "photos/agentlemaninmoscow.jpg");
+  addBook("Anna Karenina", "Leo Tolstoy", "864", "1878", "Fiction", false, "photos/annakarenina.jpg");
+  addBook("Master and Commander", "Patrick O'Brian", "412", "1969", "Fiction", false, "photos/masterandcommander.jpg");
+  addBook("The Trial", "Franz Kafka", "178", "1925", "Fiction", false, "photos/thetrial.jpg");
+  addBook("All the Light We Cannot See", "Anthony Doerr", "544", "2014", "Fiction", false, "photos/all the light.jpg");
+  addBook("Flashman", "George MacDonald Fraser", "256", "1969", "Fiction", false, "photos/flashman.jpg");
   addBook("The Garden of Evening Mists", "Tan Twan Eng", "448", "2012", "Fiction", true, "photos/thegardenofeveningmists.jpg");
   organizeBooks();
   myCabinets.forEach((thisCardCabinet) => thisCardCabinet.style.display = 'grid');

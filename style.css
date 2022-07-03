@@ -34,7 +34,7 @@ header {
 }
 
 header > h1 {
-  color: var(--background);
+  color: var(--background-color);
   align-self: center;
   margin: .5rem auto 0;
   grid-column: 1/5;
@@ -92,7 +92,7 @@ main {
   grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
   justify-items: center;
   grid-auto-rows: minmax(max-content, 15rem);
-  background-color: var(--background);
+  background-color: var(--background-color);
   padding-left: clamp(1rem, 100vw - 21rem, 10rem);
   padding-right: 1rem;
   padding-top: 1rem;
@@ -141,7 +141,7 @@ main {
   align-items: center;
   gap: .1rem;
   font-size: clamp(.35rem, 1.4vw, .725rem);
-  border-bottom: solid 1rem var(--background); 
+  border-bottom: solid 1rem var(--background-color); 
   background-color: var(--drawer-outline-color);
   width: clamp(4rem, 18%, 9rem);
   height: fit-content;
@@ -232,7 +232,7 @@ article[data-bookref='00'], .card-template, svg[id='0'] {
 }
 
 #left input:hover {
-  border-color: var(--background);
+  border-color: var(--background-color);
 }
 
 .read-background::after {
