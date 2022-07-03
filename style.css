@@ -10,8 +10,14 @@
   box-sizing: border-box;
 }
 
-html {
-  background-color: #005AFF;
+:root {
+  --background-color: #14565d;
+  --open-drawer-color: #ae7825;
+  --closed-drawer-color: #7d561b;
+  --drawer-outline-color: #5d4014;
+  --tab-color: #9c6b22;
+  --card-color: #ecd6b6;
+  background-color: var(--background-color);
 }
 
 body {
@@ -21,13 +27,14 @@ body {
 /*------ Header ------*/
 
 header {
-  background-color: #75ACFF;
+  background-color: white;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  padding-bottom: .25rem;
 }
 
 header > h1 {
-  color: white;
+  color: var(--background);
   align-self: center;
   margin: .5rem auto 0;
   grid-column: 1/5;
@@ -58,16 +65,20 @@ header > h1 {
 }
 
 .display-form::after {
-  content: 'Add a book';
+  content: 'Add book';
+  width: min-content;
 }
 .organize::after {
   content: 'Sort';
+  width: min-content;
 }
 .show-cards::after {
   content: 'Change layout';
+  width: min-content;
 }
 .populate::after {
   content: 'Tommy\'s library';
+  width: min-content;
 }
 
 .grid-svg {
@@ -81,8 +92,8 @@ main {
   grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
   justify-items: center;
   grid-auto-rows: minmax(max-content, 15rem);
-  background-color: #005AFF;
-  padding-left: clamp(1rem, 100vw - 22rem, 10rem);
+  background-color: var(--background);
+  padding-left: clamp(1rem, 100vw - 21rem, 10rem);
   padding-right: 1rem;
   padding-top: 1rem;
 }
@@ -113,9 +124,9 @@ main {
   top: 0;
   display: flex;
   flex-wrap: wrap;
-  background-color: #ecd6b6;
+  background-color: var(--card-color);
   font-family: 'secret_typewriterregular';
-  outline: solid 8px #a97e3e;
+  outline: solid 8px var(--drawer-outline-color);
   width: clamp(15rem, 100%, 25rem);
   height: max-content;
   min-height: 3.5rem;
@@ -130,24 +141,19 @@ main {
   align-items: center;
   gap: .1rem;
   font-size: clamp(.35rem, 1.4vw, .725rem);
-  border-bottom: solid 1rem #005AFF; 
-  background-color: #5d4014;
+  border-bottom: solid 1rem var(--background); 
+  background-color: var(--drawer-outline-color);
   width: clamp(4rem, 18%, 9rem);
   height: fit-content;
-  min-height: 8rem;
   padding: .5rem 0;
   margin: 0 .75rem;
 }
 
 .drawer {
   position: relative;
-  background-color: #966F33;
+  background-color: var(--open-drawer-color);
   width: clamp(4rem, 95%, 9rem);
   height: min-content;
-}
-
-.drawer:hover {
-  background-color: #ecd6b6;
 }
 
 menu {
@@ -178,11 +184,11 @@ article[data-bookref='00'], .card-template, svg[id='0'] {
 .card .tab {
   position: absolute;
   top: -1.9rem;
-  background-color: #ecd6b6;
+  background-color: var(--card-color);
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   cursor: pointer;
-  outline: 1.5px solid #a97e3e;
+  outline: 1.5px solid var(--tab-color);
   height: 1.5rem;
   width: 4rem;
   margin: 0;
@@ -226,7 +232,7 @@ article[data-bookref='00'], .card-template, svg[id='0'] {
 }
 
 #left input:hover {
-  border-color: #005AFF;
+  border-color: var(--background);
 }
 
 .read-background::after {
@@ -291,7 +297,7 @@ article[data-bookref='00'], .card-template, svg[id='0'] {
   padding: .25rem;
   background: none;
   border: none;
-  color: #ca9d59;
+  color: var(--drawer-outline-color);
   font-size: 1.1rem;
   z-index: 7;
 }
@@ -321,7 +327,7 @@ article[data-bookref='00'], .card-template, svg[id='0'] {
   height: 25rem;
   margin: 0 auto;
   padding: 2rem 0 0;
-  z-index: 3;
+  z-index: 8;
 }
 
 .book-form h2 {
@@ -348,14 +354,14 @@ article[data-bookref='00'], .card-template, svg[id='0'] {
 
 input[type='checkbox'] {
   appearance: none;
-  border: 2px solid #ca9d59;
+  border: 2px solid var(--tab-color);
   width: 1rem;
   height: 1rem;
   margin: 0;
 }
 
 input[type='checkbox']:checked {
-  background-color: #ca9d59;
+  background-color: var(--tab-color);
 }
 
 #yearDiv, #titleDiv, #authorDiv, #pagesDiv {

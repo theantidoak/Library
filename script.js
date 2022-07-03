@@ -106,10 +106,10 @@ class Book {
             card.style.zIndex = '1';
           }
         }
-        card.children[0].style.backgroundColor = '#a97e3e';
+        card.children[0].style.backgroundColor = '#9c6b22';
         card.style.backgroundColor = '#d7a963';
         if (nextCard.parentElement.dataset.drawer == thisCardCabinet.dataset.drawer) {
-          thisCardCabinet.style.zIndex = myCabinets.length + 1;
+          thisCardCabinet.style.zIndex = myCabinets.length;
         } else if (nextCard.parentElement.dataset.drawer < thisCardCabinet.dataset.drawer) {
           thisCardCabinet.style.zIndex = myCabinets.length - myCabinets.indexOf(thisCardCabinet);
         } else {
@@ -117,8 +117,8 @@ class Book {
         }
       }));
       nextCard.style.display = 'flex';
-      nextCard.children[0].style.backgroundColor = '#ecd6b6';
-      nextCard.style.backgroundColor = '#ecd6b6';
+      nextCard.children[0].style.backgroundColor = 'var(--card-color)';
+      nextCard.style.backgroundColor = 'var(--card-color)';
     })
   }
   /*------ Big Function for creating and appending book cards and cabinets ------*/ 
@@ -155,7 +155,6 @@ class Book {
       nextCard.children[0].style.left = (cardCabinet.children.length * 4.2) + 'rem';
       cardCabinet.appendChild(nextCard);
       
-      
       if (cardCabinet.children.length == 1) {
         stackedCabinet.appendChild(newDrawer);
         main.appendChild(cardCabinet);
@@ -188,6 +187,7 @@ class Book {
         newDrawer.id = svgDrawerCount;
         newDrawer.style.transform = 'translateY(1rem) scale(1.05)';
         newDrawer.style.zIndex = '2';
+        newDrawer.style.backgroundColor = 'var(--open-drawer-color)';
         fileCabinet.push(newDrawer);
         newDrawer.addEventListener('click', openDrawer);
       }
@@ -225,6 +225,7 @@ function openDrawer() {
   if (this.style.transform == 'translateY(0px) scale(1)') {
     this.style.transform = 'translateY(1rem) scale(1.05)';
     this.style.zIndex = '2';
+    this.style.backgroundColor = 'var(--open-drawer-color)';
     myCabinets.forEach((thisCardCabinet) => {
       if (this.id == thisCardCabinet.dataset.drawer) {
         thisCardCabinet.style.display = 'grid';
@@ -236,6 +237,7 @@ function openDrawer() {
   } else if (this.style.transform == 'translateY(1rem) scale(1.05)') {
     this.style.transform = 'translateY(0) scale(1)';
     this.style.zIndex = '1';
+    this.style.backgroundColor = 'var(--closed-drawer-color)';
     myCabinets.forEach((thisCardCabinet) => {
       if (this.id == thisCardCabinet.dataset.drawer) {
         thisCardCabinet.style.display = 'none';
