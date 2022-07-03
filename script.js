@@ -381,6 +381,7 @@ function showCards() {
 }
 
 function centerCards() {
+  if (gridShown) return;
   let openLabels = labels.filter((label) => label.style.transform == 
     'translateY(1rem) scale(1.05)').length;
   main.style.paddingLeft = openLabels == 1 ? '1.5rem' : 
