@@ -8,6 +8,7 @@ let whiteLabel;
 let drawerDiv;
 
 let cardCabinet = document.querySelector('.card-cabinet');
+cardCabinet.dataset.drawer = drawerCount;
 let myCabinets = [cardCabinet];
 
 const firstCard = document.querySelector('.card');
@@ -116,7 +117,7 @@ class Book {
       nextCard.style.backgroundColor = 'var(--card-color)';
     })
   }
-  /*------ Big Function for creating and appending book cards and cabinets ------*/ 
+  /*------ Function for creating and appending book cards and cabinets ------*/ 
   loopThroughLibrary() {
     myLibrary.forEach((book) => {
       if (book.isDisplayed == true) return;
@@ -145,8 +146,6 @@ class Book {
         .join(', ');
       nextCard.dataset.bookref = book.reference;
       nextCard.style.zIndex = myLibrary.indexOf(book) + 1;
-
-
       nextCard.children[0].style.left = (cardCabinet.children.length * 4.2) + 'rem';
       cardCabinet.appendChild(nextCard);
       
@@ -158,7 +157,6 @@ class Book {
         drawerDiv.style.zIndex = '2';
         drawerDiv.addEventListener('click', openDrawer);
         fileCabinet.push(drawerDiv);
-      
         /*------ Add label with first initials to cabinet drawer------*/
         let firstInitials = cardCabinet.children[0].children.middle.children.author.textContent.split(' ');
         let firstInitialsText = document.createTextNode(firstInitials.filter((bok) => {
@@ -170,32 +168,31 @@ class Book {
         stackedCabinet.appendChild(drawerDiv);
         stackedCabinet.style.position = window.innerHeight - stackedCabinet.offsetHeight < '122' ? 
           'absolute': 'fixed';
-        
-        centerCards();
+
         main.appendChild(cardCabinet);
         myCabinets.push(cardCabinet);
+        centerCards();
       } else if (cardCabinet.children.length % 6 == 0 && cardCabinet.children.length != 0) {
         drawerCount += 1;
         svgDrawerCount += 1;
-        /*------ Add ending intials to cabinet drawer ------*/
+        /*------ Add ending intials to cabinet drawer label ------*/
         let secondInitials = cardCabinet.children[5].children.middle.children.author.textContent.split(' ');
         let secondInitialsText = document.createTextNode(secondInitials.filter((bok) => {
           if (secondInitials.indexOf(bok) == 0 || secondInitials.indexOf(bok) == secondInitials.length - 1) {
             return bok;}}).map((it) => it[0]));
         whiteLabel.appendChild(secondInitialsText);
-        
         /*------ Create new card cabinet ------*/
         cardCabinet = document.createElement('div');
         cardCabinet.classList.add('card-cabinet');
+        cardCabinet.dataset.drawer = drawerCount;
       }
 
       if (gridShown) {
         nextCard.style.position = 'relative';
         myCabinets.forEach((thisCardCabinet) => thisCardCabinet.classList.replace('card-cabinet', 'card-cabinet-displayed'));
       }
-      cardCabinet.dataset.drawer = drawerCount;
-      let bookref = nextCard.dataset.bookref;
       allCards.push(nextCard);
+      let bookref = nextCard.dataset.bookref;
       book.deleteCard(bookref);
       book.useTabs(bookref);
       book.resetForm();
@@ -272,22 +269,22 @@ function addBook(title, author, pages, year, category, read, image) {
     thisAuthor = newBook.author.replace(/\s{2,}/g, ' ').trim().split(' ');
   }
     
-    if (thisAuthor == '') {
-      thisAuthor = 'Author?'
-    } else {
-      thisAuthor = thisAuthor.map((up) => up[0].toUpperCase().concat(up.substring(1)));
-      thisAuthor.unshift(thisAuthor.pop() + ',')
-      thisAuthor = thisAuthor.join(' ');
-    }
-    newBook.author = thisAuthor;
+  if (thisAuthor == '') {
+    thisAuthor = 'Author?'
+  } else {
+    thisAuthor = thisAuthor.map((up) => up[0].toUpperCase().concat(up.substring(1)));
+    thisAuthor.unshift(thisAuthor.pop() + ',')
+    thisAuthor = thisAuthor.join(' ');
+  }
+  newBook.author = thisAuthor;
 
-  // if (myLibrary.some((duplicate) => {
-  //   if (duplicate.title == newBook.title && 
-  //   duplicate.author == newBook.author &&
-  //   duplicate.year == newBook.year &&
-  //   duplicate.pages == newBook.pages)
-  //   return true;
-  // })) return;
+  if (myLibrary.some((duplicate) => {
+    if (duplicate.title == newBook.title && 
+    duplicate.author == newBook.author &&
+    duplicate.year == newBook.year &&
+    duplicate.pages == newBook.pages)
+    return true;
+  })) return;
   myLibrary.push(newBook);
   newBook.loopThroughLibrary();
 }
