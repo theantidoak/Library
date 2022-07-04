@@ -154,7 +154,7 @@ class Book {
         /*------ Create new cabinet drawer ------*/
         drawerDiv = document.querySelector('#drawer-template').cloneNode(true);
         drawerDiv.id = svgDrawerCount;
-        drawerDiv.style.transform = 'translateY(1rem) scale(1.05)';
+        drawerDiv.style.transform = 'var(--open-drawer)';
         drawerDiv.style.zIndex = '2';
         drawerDiv.addEventListener('click', openDrawer);
         fileCabinet.push(drawerDiv);
@@ -247,10 +247,10 @@ function addBook(title, author, pages, year, category, read, image) {
 
 /*------ Open the drawer and display the card cabinet ------*/
 function openDrawer() {
-  if (this.style.transform == 'translateY(0px) scale(1)') {
-    this.style.transform = 'translateY(1rem) scale(1.05)';
+  if (this.style.transform == 'var(--closed-drawer)') {
+    this.style.transform = 'var(--open-drawer)';
     this.style.zIndex = '2';
-    this.style.backgroundColor = 'var(--open-drawer-color)';
+    this.children[0].style.backgroundColor = 'var(--open-drawer-color)';
     myCabinets.forEach((thisCardCabinet) => {
       if (this.id == thisCardCabinet.dataset.drawer) {
         thisCardCabinet.style.display = 'grid';
@@ -259,10 +259,10 @@ function openDrawer() {
         }
       } 
     })
-  } else if (this.style.transform == 'translateY(1rem) scale(1.05)') {
-    this.style.transform = 'translateY(0) scale(1)';
+  } else if (this.style.transform == 'var(--open-drawer)') {
+    this.style.transform = 'var(--closed-drawer)';
     this.style.zIndex = '1';
-    this.style.backgroundColor = 'var(--closed-drawer-color)';
+    this.children[0].style.backgroundColor = 'var(--closed-drawer-color)';
     myCabinets.forEach((thisCardCabinet) => {
       if (this.id == thisCardCabinet.dataset.drawer) {
         thisCardCabinet.style.display = 'none';
@@ -272,7 +272,6 @@ function openDrawer() {
   centerCards();
 }
 
-
 /*------ Display the Add book form ------*/
 function displayForm() {
   [...form.parentNode.parentNode.children]
@@ -281,7 +280,6 @@ function displayForm() {
   form.style.display = 'flex';
   form.style.filter = 'blur(0)';
 }
-
 
 /*------ Delete button on the Add book form ------*/
 function exitForm() {
@@ -316,7 +314,7 @@ function populateLibrary() {
   addBook("The Garden of Evening Mists", "Tan Twan Eng", "448", "2012", "Fiction", true, "photos/thegardenofeveningmists.jpg");
   organizeBooks();
   myCabinets.forEach((thisCardCabinet) => thisCardCabinet.style.display = 'grid');
-  fileCabinet.forEach((drawer) => drawer.style.transform = 'translateY(1rem) scale(1.05)');
+  fileCabinet.forEach((drawer) => drawer.style.transform = 'var(--open-drawer)');
 }
 
 
@@ -386,7 +384,7 @@ function centerCards() {
   if (window.innerWidth < 800) return;
   if (gridShown) return;
   let openDrawers = fileCabinet.filter((label) => label.style.transform == 
-    'translateY(1rem) scale(1.05)').length;
+    'var(--open-drawer)').length;
   main.style.paddingLeft = openDrawers == 1 ? '1.5rem' : 
     'clamp(1rem, 100vw - 21rem, 10rem)';
 }
