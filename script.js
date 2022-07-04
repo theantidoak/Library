@@ -1,21 +1,25 @@
-let myLibrary = [];
-let allCards = [];
-let labels = [];
 let gridShown = false;
 let drawerCount = 1;
 let svgDrawerCount = 1;
+let myLibrary = [];
+let allCards = [];
+let fileCabinet = [];
+let whiteLabel;
+let drawerDiv;
+
+let cardCabinet = document.querySelector('.card-cabinet');
+let myCabinets = [cardCabinet];
 
 const firstCard = document.querySelector('.card');
 const form = document.querySelector('form');
+const main = document.querySelector('main');
+const stackedCabinet = document.querySelector('.stacked-cabinet');
 
 const addBookBtn = document.querySelector('.btn');
 addBookBtn.addEventListener('click', addBook);
 
 const formDisplay = document.querySelector('.display-form');
 formDisplay.addEventListener('click', displayForm);
-
-const main = document.querySelector('main');
-const stackedCabinet = document.querySelector('.stacked-cabinet');
 
 const organizeButton = document.querySelector('.organize');
 organizeButton.addEventListener('click', organizeBooks);
@@ -24,20 +28,11 @@ const showCardButton = document.querySelector('.show-cards');
 showCardButton.addEventListener('click', showCards);
 
 const exitFormButton = document.querySelector('.exit-form');
-document.addEventListener('click', exitForm);
+exitFormButton.addEventListener('click', exitForm);
 
 const populateButton = document.querySelector('.populate');
 populateButton.addEventListener('click', populateLibrary);
 
-let menu = document.querySelector('menu');
-let menuContent;
-let cardCabinet = document.querySelector('.card-cabinet');
-let myCabinets = [cardCabinet];
-let newDrawer = document.querySelector('.drawer').cloneNode(true);
-newDrawer.id = svgDrawerCount;
-newDrawer.style.transform = 'translateY(1rem) scale(1.05)';
-newDrawer.addEventListener('click', openDrawer);
-let fileCabinet = [newDrawer];
 
 /*------ Create Book Object ------*/
 class Book {
@@ -156,18 +151,29 @@ class Book {
       cardCabinet.appendChild(nextCard);
       
       if (cardCabinet.children.length == 1) {
-        stackedCabinet.appendChild(newDrawer);
-        main.appendChild(cardCabinet);
-        myCabinets.push(cardCabinet);
+        /*------ Create new cabinet drawer ------*/
+        drawerDiv = document.querySelector('#drawer-template').cloneNode(true);
+        drawerDiv.id = svgDrawerCount;
+        drawerDiv.style.transform = 'translateY(1rem) scale(1.05)';
+        drawerDiv.style.zIndex = '2';
+        drawerDiv.addEventListener('click', openDrawer);
+        fileCabinet.push(drawerDiv);
+      
         /*------ Add label with first initials to cabinet drawer------*/
         let firstInitials = cardCabinet.children[0].children.middle.children.author.textContent.split(' ');
         let firstInitialsText = document.createTextNode(firstInitials.filter((bok) => {
           if (firstInitials.indexOf(bok) == 0 || firstInitials.indexOf(bok) == firstInitials.length - 1) {
               return bok;}}).map((it) => it[0]) + ' - ');
-        menuContent = document.createElement('li');
-        menuContent.appendChild(firstInitialsText); 
-        menu.appendChild(menuContent);
-        labels.push(menuContent);
+        whiteLabel = document.createElement('p');
+        whiteLabel.appendChild(firstInitialsText);
+        drawerDiv.appendChild(whiteLabel);
+        stackedCabinet.appendChild(drawerDiv);
+        stackedCabinet.style.position = window.innerHeight - stackedCabinet.offsetHeight < '122' ? 
+          'absolute': 'fixed';
+        
+        centerCards();
+        main.appendChild(cardCabinet);
+        myCabinets.push(cardCabinet);
       } else if (cardCabinet.children.length % 6 == 0 && cardCabinet.children.length != 0) {
         drawerCount += 1;
         svgDrawerCount += 1;
@@ -176,28 +182,17 @@ class Book {
         let secondInitialsText = document.createTextNode(secondInitials.filter((bok) => {
           if (secondInitials.indexOf(bok) == 0 || secondInitials.indexOf(bok) == secondInitials.length - 1) {
             return bok;}}).map((it) => it[0]));
-        menuContent.appendChild(secondInitialsText);
+        whiteLabel.appendChild(secondInitialsText);
         
         /*------ Create new card cabinet ------*/
         cardCabinet = document.createElement('div');
         cardCabinet.classList.add('card-cabinet');
-        
-        /*------ Create new cabinet drawer ------*/
-        newDrawer = document.querySelector('.drawer').cloneNode(true);
-        newDrawer.id = svgDrawerCount;
-        newDrawer.style.transform = 'translateY(1rem) scale(1.05)';
-        newDrawer.style.zIndex = '2';
-        newDrawer.style.backgroundColor = 'var(--open-drawer-color)';
-        fileCabinet.push(newDrawer);
-        newDrawer.addEventListener('click', openDrawer);
       }
 
       if (gridShown) {
         nextCard.style.position = 'relative';
         myCabinets.forEach((thisCardCabinet) => thisCardCabinet.classList.replace('card-cabinet', 'card-cabinet-displayed'));
       }
-      stackedCabinet.style.position = window.innerHeight - stackedCabinet.offsetHeight < '122' ? 
-          'absolute': 'fixed';
       cardCabinet.dataset.drawer = drawerCount;
       let bookref = nextCard.dataset.bookref;
       allCards.push(nextCard);
@@ -205,20 +200,16 @@ class Book {
       book.useTabs(bookref);
       book.resetForm();
     })
-    moveLabelWithDrawer();
-    centerCards();
   } 
 }
 
 /*------ Delete button on the Add book form ------*/
-function exitForm(e) {
-  if (exitFormButton.contains(e.target)) {
-    form.style.display = 'none';
-    [...form.parentNode.parentNode.children]
-      .forEach((el) => [...el.children]
-        .forEach((child) => child.style.filter = 'blur(0)'));
-    form.reset();
-  }
+function exitForm() {
+  form.style.display = 'none';
+  [...form.parentNode.parentNode.children]
+    .forEach((el) => [...el.children]
+      .forEach((child) => child.style.filter = 'blur(0)'));
+  form.reset();
 }
 
 /*------ Open the drawer and display the card cabinet ------*/
@@ -245,7 +236,6 @@ function openDrawer() {
       } 
     })
   }
-  moveLabelWithDrawer();
   centerCards();
 }
 
@@ -308,7 +298,6 @@ function organizeBooks() {
   svgDrawerCount = 1;
   myCabinets = [];
   fileCabinet = [];
-  labels = [];
   myLibrary.forEach((book) => {
     book.isDisplayed = false;
   });
@@ -324,31 +313,13 @@ function organizeBooks() {
       child.parentElement.removeChild(child);
     }
   });
-  menu = document.createElement('menu');
-  fileCabinet.push(newDrawer);
-  myCabinets.push(cardCabinet);
-  newDrawer.id = svgDrawerCount;
-  stackedCabinet.appendChild(menu);
-  stackedCabinet.appendChild(newDrawer);
+  
+  myCabinets.push(cardCabinet); 
   main.appendChild(stackedCabinet);
   main.appendChild(cardCabinet);
   new Book().loopThroughLibrary();
 }
 
-/*------ Move the label with initials when the drawer is opened ------*/
-function moveLabelWithDrawer() {
-  if (labels.length < 1) return;
-  fileCabinet.forEach((drawer) => {
-    let index = fileCabinet.indexOf(drawer);
-    if (labels[index] == undefined) return;
-    let label = labels[index];
-    if (drawer.style.transform == 'translateY(0px) scale(1)') {
-      label.style.transform = 'translateY(0px) scale(1)';
-    } else if (drawer.style.transform == 'translateY(1rem) scale(1.05)') {
-      label.style.transform = 'translateY(1rem) scale(1.05)';
-    }
-  })
-}
 
 /*------ Display the cards in grid format or tab format ------*/
 function showCards() {
@@ -381,10 +352,11 @@ function showCards() {
 }
 
 function centerCards() {
+  if (window.innerWidth < 800) return;
   if (gridShown) return;
-  let openLabels = labels.filter((label) => label.style.transform == 
+  let openDrawers = fileCabinet.filter((label) => label.style.transform == 
     'translateY(1rem) scale(1.05)').length;
-  main.style.paddingLeft = openLabels == 1 ? '1.5rem' : 
+  main.style.paddingLeft = openDrawers == 1 ? '1.5rem' : 
     'clamp(1rem, 100vw - 21rem, 10rem)';
 }
 
@@ -412,5 +384,4 @@ function populateLibrary() {
   organizeBooks();
   myCabinets.forEach((thisCardCabinet) => thisCardCabinet.style.display = 'grid');
   fileCabinet.forEach((drawer) => drawer.style.transform = 'translateY(1rem) scale(1.05)');
-  moveLabelWithDrawer();
 }
