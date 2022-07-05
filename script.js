@@ -355,7 +355,7 @@ function showCards() {
   if (!gridShown) {
     gridSVG.style.display = 'block';
     tabsSVG.style.display = 'none';
-    main.style.paddingLeft = 'clamp(1rem, 100vw - 21rem, 10rem)';
+    main.style.paddingLeft = 'clamp(2.25rem, 100vw - 21rem, 11rem)';
     myCabinets.forEach((thisCardCabinet) => {
       thisCardCabinet.classList.replace('card-cabinet', 'card-cabinet-displayed');
       if (window.innerWidth < 600) return;
@@ -386,5 +386,5 @@ function centerCards() {
   let openDrawers = fileCabinet.filter((label) => label.style.transform == 
     'var(--open-drawer)').length;
   main.style.paddingLeft = openDrawers == 1 ? '1.5rem' : 
-    'clamp(1rem, 100vw - 21rem, 10rem)';
+    'clamp(2.25rem, 100vw - 21rem, 11rem)';
 }

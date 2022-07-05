@@ -95,7 +95,7 @@ main {
   justify-items: center;
   grid-auto-rows: minmax(max-content, 15rem);
   background-color: var(--background-color);
-  padding-left: clamp(1rem, 100vw - 21rem, 10rem);
+  padding-left: clamp(2.25rem, 100vw - 21rem, 11rem);
   padding-right: 1rem;
   padding-top: 1rem;
 }
