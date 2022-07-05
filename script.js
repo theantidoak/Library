@@ -34,6 +34,10 @@ const populateButton = document.querySelector('.populate');
 populateButton.addEventListener('click', populateLibrary);
 
 
+/*------ Change default format if mobile ------*/
+
+window.innerWidth < 600 ? showCards() : null;
+
 /*------ Create Book Object ------*/
 class Book {
   constructor(title, author, pages, year, category, read, image) {

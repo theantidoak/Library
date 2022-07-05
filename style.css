@@ -337,6 +337,7 @@ article[data-bookref='00'], .card-template {
 .book-form h2 {
   text-align: center;
   margin: 0;
+  color: var(--drawer-outline-color);
 }
 
 .exit-form {
@@ -362,6 +363,7 @@ input[type='checkbox'] {
   width: 1rem;
   height: 1rem;
   margin: 0;
+  border-radius: 30%;
 }
 
 input[type='checkbox']:checked {
