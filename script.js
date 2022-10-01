@@ -392,3 +392,91 @@ function centerCards() {
   main.style.paddingLeft = openDrawers == 1 ? '1.5rem' : 
     'clamp(2.25rem, 100vw - 21rem, 11rem)';
 }
+
+
+/***** Carousel Functions *****/
+
+const getPosition = (function() {
+  let counter = 0;
+  return function() {
+      counter++;
+  };
+})();
+
+const getSlides = (function() {
+  return function() {
+    slides;
+  }
+})();
+
+const getDots = (function() {
+  return function() {
+    navigationDots;
+  }
+})();
+
+function goToNextPicture() {
+  if (checkIfCarouselEndRight(getPosition.counter)) return;
+  getSlides.slides.style.transform = `translateX(${getPosition.counter - 10}rem)`;
+  getPosition.counter += -10;
+  changeDotColor();
+}
+
+function goToPreviousPicture() {
+  if (checkIfCarouselEndLeft(getPosition.counter)) return;
+  getSlides.slides.style.transform = `translateX(${getPosition.counter + 10}rem)`;
+  getPosition.counter += 10;
+  changeDotColor();
+}
+
+function checkIfCarouselEndRight(position) {
+  if (position <= -160) {
+    return true;
+  }
+  return false;
+}
+
+function checkIfCarouselEndLeft(position) {
+  if (position >= 0) {
+    return true;
+  }
+  return false;
+}
+
+function changeDotColor() {
+  for (let i = 0; i >= -160; i -= 10) {
+    if (getPosition.counter > i) {
+      getDots.navigationDots[i/-10].style.backgroundColor = 'black';
+    }
+
+    if (getPosition.counter < i) {
+      getDots.navigationDots[(i-10)/-10].style.backgroundColor = 'white';
+    }
+  }
+}
+
+function goToBookFromDot() {
+  getDots.navigationDots.forEach((dot, index) => {
+    if (this === dot) {
+      getSlides.slides.style.transform = `translateX(${index*-10}rem)`;
+      getPosition.counter = index*-10;   
+    }
+  });
+  changeDotColor();
+}
+
+function bindDots() {
+  getDots.navigationDots.forEach((dot) => dot.addEventListener('click', goToBookFromDot));
+};
+
+(function bindCarouselButtons() {
+  const leftArrow = document.getElementById('left-arrow');
+  const rightArrow = document.getElementById('right-arrow');
+  rightArrow.addEventListener('click', goToNextPicture);
+  leftArrow.addEventListener('click', goToPreviousPicture);
+  getPosition.counter = 0;
+  getSlides.slides = document.querySelector('.carousel-slides');
+  getDots.navigationDots = document.querySelectorAll('.navigation-dots div');
+  changeDotColor();
+  bindDots();
+})();

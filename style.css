@@ -444,6 +444,71 @@ footer {
   background-color: transparent;
 }
 
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
+}
+
+.carousel-container {
+  position: relative;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 10rem;
+  height: 40;
+  margin: 0 auto;
+  overflow: hidden;
+  display: none;
+}
+
+.carousel-slides {
+  margin: 0 auto;
+  display: flex;
+  transition: all .5s ease;
+}
+
+.carousel-slides img {
+  width: 10rem;
+  margin: 3rem 0 1rem;
+}
+
+.arrows {
+  position: absolute;
+  display: flex;
+  gap: 14rem;
+  width: 20rem;
+  top: 32.5%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  display: none;
+}
+
+.arrows > * {
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.navigation-dots {
+  width: fit-content;
+  margin: 0 auto;
+  height: 1rem;
+  display: flex;
+  gap: .25rem;
+  display: none;
+}
+
+.navigation-dots div {
+  width: .65rem;
+  height: .65rem;
+  border-radius: 50%;
+  background-color: white;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 550px) {
   
   .card-cabinet, .card-cabinet-displayed {
