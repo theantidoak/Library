@@ -24,6 +24,7 @@
 
 body {
   margin:0;
+  width: 100vw;
 }
 
 /*------ Header ------*/
@@ -507,6 +508,58 @@ footer {
   border-radius: 50%;
   background-color: white;
   cursor: pointer;
+}
+
+/***** Form Validation *****/
+
+#validation {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+  width: 21rem;
+  margin: 0 auto;
+  padding-top: 5rem;
+}
+
+#validation div {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+#validation label {
+  color: white;
+}
+
+#validation input:valid {
+  outline: 1px solid green;
+}
+
+#validation input:focus:invalid {
+  outline: 1px solid red;
+}
+
+#validation button {
+  margin-top: .75rem;
+  align-self: center;
+}
+
+.error {
+  position: absolute;
+  height: fit-content;
+  min-width: 159px;
+  left: 22rem;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+}
+
+.error.active {
+  background-color: white;
+  color: red;
+  padding: .25rem;
 }
 
 @media screen and (max-width: 550px) {
